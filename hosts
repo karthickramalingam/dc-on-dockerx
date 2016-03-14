@@ -1,0 +1,10 @@
+[switches:vars]
+ansible_host=vm0
+
+[switches]
+spine1 ansible_port=10022
+fab1   ansible_port=11022
+fab2   ansible_port=12022
+edge1  ansible_port=13022
+edge2  ansible_port=14022
+edge3  ansible_port=15022

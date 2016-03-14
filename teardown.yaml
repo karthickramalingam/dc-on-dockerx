@@ -1,0 +1,9 @@
+---
+- name: teardown containers
+  hosts: containers
+  tasks:
+  - name: stop OpenSwitch containers
+    docker:
+      name: "{{ inventory_name }}"
+      image: openswitch/genericx86-64
+      state: stopped
