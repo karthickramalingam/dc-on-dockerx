@@ -8,3 +8,6 @@ fab2   ansible_port=12022
 edge1  ansible_port=13022
 edge2  ansible_port=14022
 edge3  ansible_port=15022
+
+[spines]
+spine1
