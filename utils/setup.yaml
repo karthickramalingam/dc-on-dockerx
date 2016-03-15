@@ -1,32 +1,30 @@
 ---
-- name: taking care of the docker networking
+- name: setup docker host
   hosts: vm
   gather_facts: no
   tasks:
-    - script: docker-network.sh > /tmp/docker-network.done creates=/tmp/docker-network.done
+    - name: copy docker-compose related files
+      copy: src={{ item }} dest=~/{{ item }}
+      with_items:
+        - docker-compose.yaml
+        - Dockerfile
+        - ops-if-netns.sh
+    - name: build docker image and create containers
+      command: docker-compose build
+    - name: compose docker containers
+      command: docker-compose up -d
+    - name: docker networking
+      script: docker-network.sh >> /tmp/docker-network.done creates=/tmp/docker-network.done
+    - pause: seconds=5
 
-- name: copy ssh public key to the switches
-  hosts: switches
-  gather_facts: no
-  vars:
-    ansible_user: root
-    public_key: ~/.ssh/id_rsa.pub
-  tasks:
-    - authorized_key: user=admin key="{{ lookup('file', public_key) }}"
-
-- name: check the admin account on the switch
+- name: setup docker containers
   hosts: switches
   gather_facts: no
   vars:
     ansible_user: admin
   tasks:
-    - ping:
-
-- name: taking care of the network interfaces
-  hosts: switches
-  gather_facts: no
-  become: true
-  vars:
-    ansible_user: admin
-  tasks:
-    - command: /home/admin/bin/ops-if-netns.sh > /tmp/ops-if-netns.done creates=/tmp/ops-if-netns.done
+    - name: let's check the reachability
+      ping:
+    - name: move all the interfaces to the right namespace
+      become: true
+      command: /home/admin/bin/ops-if-netns.sh > /tmp/ops-if-netns.done creates=/tmp/ops-if-netns.done

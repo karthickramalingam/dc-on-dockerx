@@ -1,0 +1,10 @@
+---
+- name: teardown docker containers
+  hosts: vm
+  gather_facts: no
+  tasks:
+    - name: shutdown containers
+      command: docker-compose down
+    - pause: seconds=5
+    - name: removing the networking temp file
+      file: path=/tmp/docker-network.done state=absent
