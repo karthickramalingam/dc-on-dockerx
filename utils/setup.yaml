@@ -7,3 +7,11 @@
     public_key: ~/.ssh/id_rsa.pub
   tasks:
     - authorized_key: user=admin key="{{ lookup('file', public_key) }}"
+
+- name: check the admin account on the switch
+  hosts: switches
+  gather_facts: no
+  vars:
+    ansible_user: admin
+  tasks:
+    - ping:

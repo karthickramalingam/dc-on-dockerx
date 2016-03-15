@@ -1,7 +1,7 @@
 version: '2'
 services:
   spine1:
-    image: openswitch/genericx86-64
+    build: .
     container_name: "ops0"
     privileged: true
     ports:
@@ -14,7 +14,7 @@ services:
       - default
     command: /sbin/init
   fab1:
-    image: openswitch/genericx86-64
+    build: .
     container_name: "ops1"
     privileged: true
     ports:
@@ -27,7 +27,7 @@ services:
       - default
     command: /sbin/init
   fab2:
-    image: openswitch/genericx86-64
+    build: .
     container_name: "ops2"
     privileged: true
     ports:
@@ -40,7 +40,7 @@ services:
       - default
     command: /sbin/init
   edge1:
-    image: openswitch/genericx86-64
+    build: .
     container_name: "ops3"
     privileged: true
     ports:
@@ -53,7 +53,7 @@ services:
       - default
     command: /sbin/init
   edge2:
-    image: openswitch/genericx86-64
+    build: .
     container_name: "ops4"
     privileged: true
     ports:
@@ -66,7 +66,7 @@ services:
       - default
     command: /sbin/init
   edge3:
-    image: openswitch/genericx86-64
+    build: .
     container_name: "ops5"
     privileged: true
     ports:
