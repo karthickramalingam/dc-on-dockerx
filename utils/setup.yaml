@@ -1,4 +1,10 @@
 ---
+- name: taking care of the docker networking
+  hosts: vm
+  gather_facts: no
+  tasks:
+    - script: docker-network.sh > /tmp/docker-network.done creates=/tmp/docker-network.done
+
 - name: copy ssh public key to the switches
   hosts: switches
   gather_facts: no
@@ -23,4 +29,4 @@
   vars:
     ansible_user: admin
   tasks:
-    - command: /home/admin/bin/ops-if-netns.sh
+    - command: /home/admin/bin/ops-if-netns.sh > /tmp/ops-if-netns.done creates=/tmp/ops-if-netns.done

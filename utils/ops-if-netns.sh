@@ -12,4 +12,6 @@ for i in {1..48}; do
 	fi
 done
 
-exit $count
+# always returns success.
+# Need to take care of the idempotence, though
+exit 0
