@@ -32,30 +32,33 @@ Ansible 2.1 and above, just like [OpenSwitch switch role](http://github.com/kein
         |  sw4  |      |  sw5  |      |  sw6  |
         +---+---+      +---+---+      +---+---+
             |3             |3             |3
-            |              |              | 
-            |1             |1             |1
-        +---+---+      +---+---+      +---+---+
-        |  hs4  |      |  hs5  |      |  hs6  |
-        +-------+      +-------+      +-------+
 
 ```
 
-## Setup/teardown
+## Setup
 
-There are two playbooks under `utils` directory to setup and teardown
-the topology.  It's primarily the *docker-compose* with
-*docker networking* stuff:
+Single playbook to setup the above topology.  It's basically
+It's primarily the `docker-compose` with the new `docker networking`
+stuff, with additional tweaks for OpenSwitch interfaces:
 
+```
   $ ansible-playbook utils/setup.yaml
-
-and teardown would be:
-
-  $ ansible-playbook utils/teardown.yaml
+```
 
 ## Play
 
-There is only one play, to configure whole switch in one shot:
+Now, you're ready for play, and of course, it's called `site.yaml`:
 
+```
   $ ansible-playbook site.yaml
+```
+
+## Tear down
+
+Teardown the topology, once you have a fun:
+
+```
+  $ ansible-playbook utils/teardown.yaml
+```
 
 Enjoy and happy hacking!
