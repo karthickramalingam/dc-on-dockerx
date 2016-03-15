@@ -1,0 +1,68 @@
+version: '2'
+services:
+  spine1:
+    image: openswitch/genericx86-64
+    container_name: "ops0"
+    privileged: true
+    ports:
+      - "10022:22"
+    volumes:
+      - /tmp:/tmp
+      - /dev/log:/dev/log
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    command: /sbin/init
+  fab1:
+    image: openswitch/genericx86-64
+    container_name: "ops1"
+    privileged: true
+    ports:
+      - "11022:22"
+    volumes:
+      - /tmp:/tmp
+      - /dev/log:/dev/log
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    command: /sbin/init
+  fab2:
+    image: openswitch/genericx86-64
+    container_name: "ops2"
+    privileged: true
+    ports:
+      - "12022:22"
+    volumes:
+      - /tmp:/tmp
+      - /dev/log:/dev/log
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    command: /sbin/init
+  edge1:
+    image: openswitch/genericx86-64
+    container_name: "ops3"
+    privileged: true
+    ports:
+      - "13022:22"
+    volumes:
+      - /tmp:/tmp
+      - /dev/log:/dev/log
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    command: /sbin/init
+  edge2:
+    image: openswitch/genericx86-64
+    container_name: "ops4"
+    privileged: true
+    ports:
+      - "14022:22"
+    volumes:
+      - /tmp:/tmp
+      - /dev/log:/dev/log
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    command: /sbin/init
+  edge3:
+    image: openswitch/genericx86-64
+    container_name: "ops5"
+    privileged: true
+    ports:
+      - "15022:22"
+    volumes:
+      - /tmp:/tmp
+      - /dev/log:/dev/log
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    command: /sbin/init
