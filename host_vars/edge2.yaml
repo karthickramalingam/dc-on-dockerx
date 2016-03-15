@@ -1,5 +1,5 @@
 ---
-ops_system_hostname: edge1
+ops_system_hostname: edge2
 
 ops_vrfs:
   - name: vrf_default
@@ -18,11 +18,11 @@ ops_bridges:
 
 ops_ports:
   - name: 1
-    ipv4_address: 172.16.11.2/24
+    ipv4_address: 172.16.12.2/24
   - name: 2
-    ipv4_address: 172.16.21.2/24
+    ipv4_address: 172.16.22.2/24
   - name: 3
-    ipv4_address: 172.16.30.1/24
+    ipv4_address: 172.16.40.1/24
   - name: 4
   - name: 5
   - name: 6
