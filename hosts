@@ -13,4 +13,7 @@ edge3  ansible_port=15022
 spine1
 
 [fabs]
-fab1
+fab[1:2]
+
+[edges]
+edge1

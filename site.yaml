@@ -27,3 +27,13 @@
   roles:
     - role: switch
       ops_intf_admin_state: down
+
+- name: edge switches
+  hosts: edges
+  gather_facts: yes
+  vars:
+    ansible_user: admin
+    ops_debug: no
+  roles:
+    - role: switch
+      ops_intf_admin_state: down
