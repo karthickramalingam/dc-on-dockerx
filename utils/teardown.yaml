@@ -1,10 +1,19 @@
 ---
 - name: teardown docker containers
   hosts: docker
+  vars:
+    your_public_key: id_rsa.pub
   gather_facts: no
   tasks:
     - name: shutdown containers
       command: docker-compose down
     - pause: seconds=5
-    - name: removing the networking temp file
+    - name: removing the network temp file
       file: path=/tmp/docker-network.done state=absent
+    - name: removing all the files copied on the docker box
+      file: path={{ item }} state=absent
+      with_items:
+        - docker-compose.yaml
+        - Dockerfile
+        - ops-if-netns.sh
+        - "{{ your_public_key }}"

@@ -2,6 +2,8 @@
 - name: setup docker host
   hosts: docker
   gather_facts: no
+  vars:
+    your_public_key: id_rsa.pub
   tasks:
     - name: copy docker-compose related files
       copy: src={{ item }} dest=~/{{ item }}
@@ -9,7 +11,8 @@
         - docker-compose.yaml
         - Dockerfile
         - ops-if-netns.sh
-        - id_rsa.pub
+    - name: copy your public key
+      copy: src=~/.ssh/{{ your_public_key }} dest=~/{{ your_public_key }}
     - name: build openswitch/genericx86-64 image based on utils/Dockerfile
       become: true
       command: docker-compose build
