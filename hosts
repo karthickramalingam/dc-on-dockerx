@@ -11,3 +11,6 @@ edge3  ansible_port=15022
 
 [spines]
 spine1
+
+[fabs]
+fab1

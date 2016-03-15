@@ -1,0 +1,72 @@
+---
+ops_system_hostname: fab1
+
+ops_vrfs:
+  - name: vrf_default
+    ports: [1, 2, 3, 4]
+
+ops_bridges:
+  - name: bridge_normal
+    ports: [                 5,  6,  7,  8,  9, 10,
+            11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+            21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+            31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+            41, 42, 43, 44, 45, 46, 47, 48]
+    vlans:
+      - name: VLAN10
+        id: 10
+
+ops_ports:
+  - name: 1
+    ipv4_address: 172.16.1.2/24
+  - name: 2
+    ipv4_address: 172.16.11.1/24
+  - name: 3
+    ipv4_address: 172.16.12.1/24
+  - name: 4
+    ipv4_address: 172.16.13.1/24
+  - name: 5
+  - name: 6
+  - name: 7
+  - name: 8
+  - name: 9
+  - name: 10
+  - name: 11
+  - name: 12
+  - name: 13
+  - name: 14
+  - name: 15
+  - name: 16
+  - name: 17
+  - name: 18
+  - name: 19
+  - name: 20
+  - name: 21
+  - name: 22
+  - name: 23
+  - name: 24
+  - name: 25
+  - name: 26
+  - name: 27
+  - name: 28
+  - name: 29
+  - name: 30
+  - name: 31
+  - name: 32
+  - name: 33
+  - name: 34
+  - name: 35
+  - name: 36
+  - name: 37
+  - name: 38
+  - name: 39
+  - name: 40
+  - name: 40
+  - name: 41
+  - name: 42
+  - name: 43
+  - name: 44
+  - name: 45
+  - name: 46
+  - name: 47
+  - name: 48

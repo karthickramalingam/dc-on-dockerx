@@ -13,7 +13,17 @@
   gather_facts: yes
   vars:
     ansible_user: admin
-    ops_debug: yes
+    ops_debug: no
+  roles:
+    - role: switch
+      ops_intf_admin_state: down
+
+- name: fabric switches
+  hosts: fabs
+  gather_facts: yes
+  vars:
+    ansible_user: admin
+    ops_debug: no
   roles:
     - role: switch
       ops_intf_admin_state: down
