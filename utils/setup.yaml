@@ -4,6 +4,7 @@
   gather_facts: no
   vars:
     your_public_key: id_rsa.pub
+    network_lock_file: /tmp/docker-network.done
   tasks:
     - name: copy docker-compose related files
       copy: src={{ item }} dest=~/{{ item }}
@@ -19,7 +20,7 @@
     - name: run all the container
       command: docker-compose up -d
     - name: setup network by utils/docker-network.sh
-      script: docker-network.sh >> /tmp/docker-network.done creates=/tmp/docker-network.done
+      script: docker-network.sh >> "{{ network_lock_file }}" creates=/tmp/docker-network.done
     - pause: seconds=5
 
 - name: setup docker containers
