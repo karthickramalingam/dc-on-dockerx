@@ -1,11 +1,12 @@
-# DC on Docker
+# DC on Docker with [OpenSwitch](http://www.openswitch.net)
 
-Creating your own data-center (DC) on your laptop
-with Ansible and Docker-Compose in a snap!
+Creating your own data-center (DC) on your laptop with Ansible and
+Docker-Compose in a snap!
 
 ## Requirements
 
-Ansible 2.1 and above, just like [OpenSwitch switch role](http://github.com/keinohguchi/ops-switch-role).
+Ansible 2.1 and above, as it uses [OpenSwitch switch role](http://github.com/keinohguchi/ops-switch-role), which is based on the new Ansible
+networking framework.
 
 ## Topology
 
