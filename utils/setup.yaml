@@ -15,3 +15,12 @@
     ansible_user: admin
   tasks:
     - ping:
+
+- name: taking care of the network interfaces
+  hosts: switches
+  gather_facts: no
+  become: true
+  vars:
+    ansible_user: admin
+  tasks:
+    - command: /home/admin/bin/ops-if-netns.sh
