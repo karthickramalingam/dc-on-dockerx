@@ -1,6 +1,6 @@
 ---
 - name: setup docker host
-  hosts: vm
+  hosts: docker
   gather_facts: no
   tasks:
     - name: copy docker-compose related files
@@ -9,11 +9,13 @@
         - docker-compose.yaml
         - Dockerfile
         - ops-if-netns.sh
-    - name: build docker image and create containers
+        - id_rsa.pub
+    - name: build openswitch/genericx86-64 image based on utils/Dockerfile
+      become: true
       command: docker-compose build
-    - name: compose docker containers
+    - name: run all the container
       command: docker-compose up -d
-    - name: docker networking
+    - name: setup network by utils/docker-network.sh
       script: docker-network.sh >> /tmp/docker-network.done creates=/tmp/docker-network.done
     - pause: seconds=5
 

@@ -2,7 +2,7 @@
 ansible_host=vm0
 
 [all]
-vm
+docker
 spine1 ansible_port=10022
 fab1   ansible_port=11022
 fab2   ansible_port=12022

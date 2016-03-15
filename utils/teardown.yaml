@@ -1,6 +1,6 @@
 ---
 - name: teardown docker containers
-  hosts: vm
+  hosts: docker
   gather_facts: no
   tasks:
     - name: shutdown containers
