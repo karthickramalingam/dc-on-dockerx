@@ -1,4 +1,15 @@
 ---
+- name: fabric switches
+  hosts: fabrics
+  gather_facts: yes
+  vars:
+    ansible_user: admin
+    ops_system_hostname: "{{ inventory_hostname }}"
+    ops_debug: no
+  roles:
+    - role: switch
+      ops_intf_admin_state: up
+
 - name: spine switches
   hosts: spines
   gather_facts: yes
@@ -10,19 +21,8 @@
     - role: switch
       ops_intf_admin_state: up
 
-- name: fabric switches
-  hosts: fabs
-  gather_facts: yes
-  vars:
-    ansible_user: admin
-    ops_system_hostname: "{{ inventory_hostname }}"
-    ops_debug: no
-  roles:
-    - role: switch
-      ops_intf_admin_state: up
-
-- name: edge switches
-  hosts: edges
+- name: leaf switches
+  hosts: leaves
   gather_facts: yes
   vars:
     ansible_user: admin
