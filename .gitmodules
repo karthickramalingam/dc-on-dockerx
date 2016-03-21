@@ -1,0 +1,3 @@
+[submodule "roles/switch"]
+	path = roles/switch
+	url = git@github.com:keinohguchi/ops-switch-role
