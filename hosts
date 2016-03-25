@@ -1,5 +1,6 @@
 [all:vars]
 ansible_host=vm0
+ops_system_hostname="{{ inventory_hostname }}"
 
 [all]
 docker

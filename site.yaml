@@ -4,7 +4,6 @@
   gather_facts: yes
   vars:
     ansible_user: admin
-    ops_system_hostname: "{{ inventory_hostname }}"
     ops_debug: no
   roles:
     - role: switch
@@ -15,7 +14,6 @@
   gather_facts: yes
   vars:
     ansible_user: admin
-    ops_system_hostname: "{{ inventory_hostname }}"
     ops_debug: no
   roles:
     - role: switch
@@ -26,7 +24,6 @@
   gather_facts: yes
   vars:
     ansible_user: admin
-    ops_system_hostname: "{{ inventory_hostname }}"
     ops_debug: no
   roles:
     - role: switch

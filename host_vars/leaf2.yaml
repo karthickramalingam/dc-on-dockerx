@@ -1,6 +1,4 @@
 ---
-ops_system_hostname: edge2
-
 ops_vrfs:
   - name: vrf_default
     ports: [1, 2, 3]
