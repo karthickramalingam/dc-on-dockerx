@@ -5,13 +5,22 @@
   vars:
     ansible_user: admin
     ops_debug: no
-
+    cli:
+      username: netop
+      password: netop
+      host: "{{ ansible_host }}"
+      port: "{{ ansible_port }}"
   tasks:
     - name: Show version
       ops_command:
-        username: netop
-        password: netop
-        host: 172.16.128.2
-        port: 10022
         commands:
           - show version
+        provider: "{{ cli }}"
+        waitfor:
+          - "result[0] contains OpenSwitch"
+        interval: 1
+        retries: 2
+      register: result
+      connection: local
+    - name: dump the result
+      debug: var=result
