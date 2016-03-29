@@ -1,4 +1,31 @@
 ---
+- name: verify the switch version
+  hosts: switches
+  gather_facts: no
+  vars:
+    ansible_user: admin
+    ops_debug: no
+    cli:
+      username: netop
+      password: netop
+      host: "{{ ansible_host }}"
+      port: "{{ ansible_port }}"
+  tasks:
+    - name: show version CLI
+      ops_command:
+        commands:
+          - show version
+        provider: "{{ cli }}"
+        waitfor:
+          - "result[0] contains OpenSwitch"
+        interval: 1
+        retries: 2
+      register: result
+      connection: local
+    - name: debug the result
+      debug: var=result
+      when: ops_debug
+
 - name: fabric switches
   hosts: fabrics
   gather_facts: yes
