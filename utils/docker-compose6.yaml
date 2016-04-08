@@ -4,7 +4,7 @@ services:
     build: .
     image: openswitch/local_build
     command: /bin/true
-  spine1:
+  fab1:
     image: openswitch/local_build
     container_name: "ops0"
     privileged: true
@@ -17,7 +17,7 @@ services:
     networks:
       - default
     command: /sbin/init
-  fab1:
+  spine1:
     image: openswitch/local_build
     container_name: "ops1"
     privileged: true
@@ -30,7 +30,7 @@ services:
     networks:
       - default
     command: /sbin/init
-  fab2:
+  spine2:
     image: openswitch/local_build
     container_name: "ops2"
     privileged: true

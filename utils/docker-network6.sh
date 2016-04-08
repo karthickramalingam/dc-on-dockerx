@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# setup spine networks
+# setup fabric networks
 for i in {0..2}; do
 	docker network inspect net${i} > /dev/null
 	if [ $? != 0 ]; then
@@ -10,7 +10,7 @@ for i in {0..2}; do
 	fi
 done
 
-# setup fabric networks
+# setup spine networks
 for j in {1..2}; do
 	for i in {1..3}; do
 		docker network inspect net${j}${i} > /dev/null
@@ -32,7 +32,7 @@ for i in 30 40 50; do
 	fi
 done
 
-# Attach spine switch
+# Attach fabric switch
 docker inspect ops0 > /dev/null
 if [ $? = 0 ]; then
 	docker network connect net0 ops0
@@ -40,7 +40,7 @@ if [ $? = 0 ]; then
 	docker network connect net2 ops0
 fi
 
-# Attach fabric switches
+# Attach spine switches
 for i in {1..2}; do
 	docker inspect ops${i} > /dev/null
 	if [ $? = 0 ]; then

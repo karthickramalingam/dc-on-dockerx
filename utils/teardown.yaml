@@ -3,15 +3,15 @@
   hosts: docker
   vars:
     your_public_key: id_rsa.pub
-    network_lock_file: /tmp/docker-network.done
+    network_done_file: /tmp/docker_network.done
   gather_facts: no
   tasks:
     - name: shutdown containers
       command: docker-compose down
     - pause: seconds=5
     - name: removing the network temp file
-      file: path="{{ network_lock_file }}" state=absent
-    - name: removing all the files copied on the docker box
+      file: path="{{ network_done_file }}" state=absent
+    - name: removing all the files copied to the docker host
       file: path={{ item }} state=absent
       with_items:
         - docker-compose.yaml

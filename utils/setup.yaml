@@ -27,9 +27,11 @@
       command: docker-compose up -d
     - name: setup network by utils/docker-network.sh
       vars:
-        lock: /tmp/docker-network.done 
+        done: /tmp/docker_network.done 
       script: >
-        "{{ docker_network_file }}" >> "{{ lock }}" creates="{{ lock }}"
+        "{{ docker_network_file }}" >> "{{ done }}" creates="{{ done }}"
+    - name: wait for docker to come up
+      pause: seconds=60
 
 - name: setup docker containers
   hosts: switches
@@ -37,9 +39,11 @@
   vars:
     ansible_user: admin
   tasks:
-    - pause: seconds=10
     - name: check the reachability
       ping:
     - name: move all the interfaces to the right namespace
       become: yes
-      command: /home/admin/bin/ops-if-netns.sh > /tmp/ops-if-netns.done creates=/tmp/ops-if-netns.done
+      vars:
+        done: /tmp/ops_if_netns.done
+      command: >
+        /home/admin/bin/ops-if-netns.sh > "{{ done }}" creates="{{ done }}"
