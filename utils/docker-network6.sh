@@ -30,7 +30,7 @@ create_spine_networks()
 }
 
 # create edge networks
-crate_edge_networks()
+create_edge_networks()
 {
 	for i in 30 40 50; do
 		docker network inspect net${i} > /dev/null
