@@ -41,7 +41,7 @@
   gather_facts: yes
   vars:
     ansible_user: admin
-    ops_debug: yes
+    ops_debug: no
   roles:
     - role: bgp
 
@@ -64,3 +64,30 @@
   roles:
     - role: switch
       ops_intf_admin_state: up
+
+- name: verify the switch configuration
+  hosts: switches
+  gather_facts: no
+  vars:
+    ansible_user: admin
+    ops_debug: yes
+    cli:
+      username: "{{ ops_username }}"
+      password: "{{ ops_password }}"
+      host: "{{ ansible_host }}"
+      port: "{{ ansible_port }}"
+  tasks:
+    - name: show running-config
+      ops_command:
+        commands:
+          - show running-config
+        provider: "{{ cli }}"
+        waitfor:
+          - "result[0] contains 'hostname {{ ops_system_hostname }}'"
+        interval: 1
+        retries: 2
+      register: result
+      connection: local
+    - name: debug the result
+      debug: var=result
+      when: ops_debug
