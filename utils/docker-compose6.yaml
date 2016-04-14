@@ -6,7 +6,7 @@ services:
     command: /bin/true
   fab1:
     image: openswitch/local_build
-    container_name: "ops0"
+    container_name: "fab1"
     privileged: true
     ports:
       - "10022:22"
@@ -19,7 +19,7 @@ services:
     command: /sbin/init
   spine1:
     image: openswitch/local_build
-    container_name: "ops1"
+    container_name: "spine1"
     privileged: true
     ports:
       - "11022:22"
@@ -32,7 +32,7 @@ services:
     command: /sbin/init
   spine2:
     image: openswitch/local_build
-    container_name: "ops2"
+    container_name: "spine2"
     privileged: true
     ports:
       - "12022:22"
@@ -43,9 +43,9 @@ services:
     networks:
       - default
     command: /sbin/init
-  edge1:
+  leaf1:
     image: openswitch/local_build
-    container_name: "ops3"
+    container_name: "leaf1"
     privileged: true
     ports:
       - "13022:22"
@@ -56,9 +56,9 @@ services:
     networks:
       - default
     command: /sbin/init
-  edge2:
+  leaf2:
     image: openswitch/local_build
-    container_name: "ops4"
+    container_name: "leaf2"
     privileged: true
     ports:
       - "14022:22"
@@ -69,9 +69,9 @@ services:
     networks:
       - default
     command: /sbin/init
-  edge3:
+  leaf3:
     image: openswitch/local_build
-    container_name: "ops5"
+    container_name: "leaf3"
     privileged: true
     ports:
       - "15022:22"

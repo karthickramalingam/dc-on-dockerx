@@ -29,8 +29,8 @@ create_spine_networks()
 	done
 }
 
-# create edge networks
-create_edge_networks()
+# create leaf networks
+create_leaf_networks()
 {
 	for i in 30 40 50; do
 		docker network inspect net${i} > /dev/null
@@ -45,11 +45,11 @@ create_edge_networks()
 # connect fabric switch
 connect_fabric_switches()
 {
-	docker inspect ops0 > /dev/null
+	docker inspect fab1 > /dev/null
 	if [ $? = 0 ]; then
-		docker network connect net0 ops0
-		docker network connect net1 ops0
-		docker network connect net2 ops0
+		docker network connect net0 fab1
+		docker network connect net1 fab1
+		docker network connect net2 fab1
 	fi
 }
 
@@ -57,25 +57,25 @@ connect_fabric_switches()
 connect_spine_switches()
 {
 	for i in {1..2}; do
-		docker inspect ops${i} > /dev/null
+		docker inspect spine${i} > /dev/null
 		if [ $? = 0 ]; then
-			docker network connect net${i} ops${i}
-			docker network connect net${i}1 ops${i}
-			docker network connect net${i}2 ops${i}
-			docker network connect net${i}3 ops${i}
+			docker network connect net${i} spine${i}
+			docker network connect net${i}1 spine${i}
+			docker network connect net${i}2 spine${i}
+			docker network connect net${i}3 spine${i}
 		fi
 	done
 }
 
-# connect edge switches
-connect_edge_switches()
+# connect leaf switches
+connect_leaf_switches()
 {
-	for i in {3..5}; do
-		docker inspect ops${i} > /dev/null
+	for i in {1..3}; do
+		docker inspect leaf${i} > /dev/null
 		if [ $? = 0 ]; then
-			docker network connect net1$(expr ${i} - 2) ops${i}
-			docker network connect net2$(expr ${i} - 2) ops${i}
-			docker network connect net${i}0 ops${i}
+			docker network connect net1${i} leaf${i}
+			docker network connect net2${i} leaf${i}
+			docker network connect net$(expr ${i} + 2)0 leaf${i}
 		fi
 	done
 }
@@ -83,7 +83,7 @@ connect_edge_switches()
 # main
 create_fabric_networks
 create_spine_networks
-create_edge_networks
+create_leaf_networks
 connect_fabric_switches
 connect_spine_switches
-connect_edge_switches
+connect_leaf_switches
