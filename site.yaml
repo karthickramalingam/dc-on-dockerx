@@ -26,7 +26,7 @@
       debug: var=result
       when: ops_debug
 
-- name: fabric switches
+- name: basic L2/L3 for fabric switches
   hosts: fabrics
   gather_facts: yes
   vars:
@@ -36,7 +36,7 @@
     - role: switch
       ops_intf_admin_state: up
 
-- name: spine switches
+- name: basic L2/L3 for spine switches
   hosts: spines
   gather_facts: yes
   vars:
@@ -46,7 +46,7 @@
     - role: switch
       ops_intf_admin_state: up
 
-- name: leaf switches
+- name: basic L2/L3 for leaf switches
   hosts: leaves
   gather_facts: yes
   vars:
@@ -74,12 +74,21 @@
   roles:
     - role: bgp
 
+- name: BGP for leaf switches
+  hosts: leaves
+  gather_facts: yes
+  vars:
+    ansible_user: admin
+    ops_debug: no
+  roles:
+    - role: bgp
+
 - name: verify the switch configuration
   hosts: switches
   gather_facts: no
   vars:
     ansible_user: admin
-    ops_debug: yes
+    ops_debug: no
     cli:
       username: "{{ ops_username }}"
       password: "{{ ops_password }}"
@@ -97,6 +106,5 @@
         retries: 2
       register: result
       connection: local
-    - name: debug the result
+    - name: print out the result
       debug: var=result
-      when: ops_debug
