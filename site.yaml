@@ -41,7 +41,7 @@
   gather_facts: yes
   vars:
     ansible_user: admin
-    ops_debug: no
+    ops_debug: yes
   roles:
     - role: bgp
 
