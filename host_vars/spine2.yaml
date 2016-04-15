@@ -1,4 +1,13 @@
 ---
+ops_vrfs:
+  - name: vrf_default
+    ports: [1, 2, 3, 4]
+    bgp_routers:
+      - as_number: 65002
+        router_id: 172.16.2.2
+        networks: [172.16.2.0/24, 172.16.21.0/24, 172.16.22.0/24,
+                   172.16.23.0/24]
+
 ops_ports:
   - name: 1
     ipv4_address: 172.16.2.2/24

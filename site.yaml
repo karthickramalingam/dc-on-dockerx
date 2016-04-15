@@ -36,15 +36,6 @@
     - role: switch
       ops_intf_admin_state: up
 
-- name: BGP for fabric switches
-  hosts: fabrics
-  gather_facts: yes
-  vars:
-    ansible_user: admin
-    ops_debug: yes
-  roles:
-    - role: bgp
-
 - name: spine switches
   hosts: spines
   gather_facts: yes
@@ -64,6 +55,24 @@
   roles:
     - role: switch
       ops_intf_admin_state: up
+
+- name: BGP for fabric switches
+  hosts: fabrics
+  gather_facts: yes
+  vars:
+    ansible_user: admin
+    ops_debug: no
+  roles:
+    - role: bgp
+
+- name: BGP for spine switches
+  hosts: spines
+  gather_facts: yes
+  vars:
+    ansible_user: admin
+    ops_debug: no
+  roles:
+    - role: bgp
 
 - name: verify the switch configuration
   hosts: switches
