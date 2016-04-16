@@ -159,6 +159,8 @@
         commands:
           - show ip route
         provider: "{{ cli }}"
+        waitfor:
+          - "result[0] contains '172.16.0.0/24'"
         interval: 1
         retries: 2
       register: result
