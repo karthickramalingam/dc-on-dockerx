@@ -5,8 +5,7 @@ Docker-Compose in a snap!
 
 ## Requirements
 
-Ansible 2.1 and above, as it uses [OpenSwitch switch role](http://github.com/keinohguchi/ops-switch-role), which is based on the new Ansible
-networking framework.
+Ansible 2.1 and above, because OpenSwitch ansible roles, e.g. [ops switch role](http://github.com/keinohguchi/ops-switch-role), depends on Ansible 2.1 modules.
 
 ## Topology
 
@@ -61,5 +60,10 @@ Teardown the topology, once you have a fun:
 ```
   $ ansible-playbook utils/teardown.yaml
 ```
+
+## Screenshot
+
+Here is the [screenshot](https://gist.github.com/keinohguchi/fa22e11f65489ac6ad94707960a26c26)
+of the `ansible-playbook site.yaml` for your reference.
 
 Enjoy and happy hacking!
