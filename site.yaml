@@ -27,7 +27,7 @@
       debug: var=result
       when: ops_debug
 
-- name: basic L2/L3 for fabric switches
+- name: L2/L3 configuration on fabric switches
   hosts: fabrics
   gather_facts: no
   vars:
@@ -37,7 +37,7 @@
     - role: switch
       ops_intf_admin_state: up
 
-- name: basic L2/L3 for spine switches
+- name: L2/L3 configuration on spine switches
   hosts: spines
   gather_facts: no
   vars:
@@ -47,7 +47,7 @@
     - role: switch
       ops_intf_admin_state: up
 
-- name: basic L2/L3 for leaf switches
+- name: L2/L3 configuration on leaf switches
   hosts: leaves
   gather_facts: no
   vars:
@@ -57,7 +57,7 @@
     - role: switch
       ops_intf_admin_state: up
 
-- name: BGP for fabric switches
+- name: BGP configuration on fabric switches
   hosts: fabrics
   gather_facts: no
   vars:
@@ -66,7 +66,7 @@
   roles:
     - role: bgp
 
-- name: BGP for spine switches
+- name: BGP configuration on spine switches
   hosts: spines
   gather_facts: no
   vars:
@@ -75,7 +75,7 @@
   roles:
     - role: bgp
 
-- name: BGP for leaf switches
+- name: BGP configuration on leaf switches
   hosts: leaves
   gather_facts: no
   vars:
@@ -84,7 +84,7 @@
   roles:
     - role: bgp
 
-- name: verify the switch configuration
+- name: check the switch configuration
   hosts: switches
   gather_facts: no
   vars:
@@ -116,7 +116,7 @@
   tasks:
     - pause: seconds=60
 
-- name: verify BGP peering
+- name: check the BGP peering
   hosts: switches
   gather_facts: no
   vars:
