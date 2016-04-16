@@ -85,7 +85,7 @@
 
 - name: verify the switch configuration
   hosts: switches
-  gather_facts: yes
+  gather_facts: no
   vars:
     ansible_user: admin
     ops_debug: no
@@ -102,6 +102,62 @@
         provider: "{{ cli }}"
         waitfor:
           - "result[0] contains 'hostname {{ ops_system_hostname }}'"
+        interval: 1
+        retries: 2
+      register: result
+      connection: local
+    - name: print out the result
+      debug: var=result
+
+- name: wait for BGP peering up
+  hosts: switches
+  gather_facts: no
+  tasks:
+    - pause: seconds=30
+
+- name: verify BGP peering
+  hosts: switches
+  gather_facts: no
+  vars:
+    ansible_user: admin
+    ops_debug: no
+    cli:
+      username: "{{ ops_username }}"
+      password: "{{ ops_password }}"
+      host: "{{ ansible_host }}"
+      port: "{{ ansible_port }}"
+  tasks:
+    - name: show ip bgp neighbors
+      ops_command:
+        commands:
+          - show ip bgp neighbors
+        provider: "{{ cli }}"
+        waitfor:
+          - "result[0] contains 'state: Established'"
+        interval: 1
+        retries: 2
+      register: result
+      connection: local
+    - name: print out the result
+      debug: var=result
+
+- name: verify IP routing table (RIB)
+  hosts: switches
+  gather_facts: yes
+  vars:
+    ansible_user: admin
+    ops_debug: no
+    cli:
+      username: "{{ ops_username }}"
+      password: "{{ ops_password }}"
+      host: "{{ ansible_host }}"
+      port: "{{ ansible_port }}"
+  tasks:
+    - name: show ip route
+      ops_command:
+        commands:
+          - show ip route
+        provider: "{{ cli }}"
         interval: 1
         retries: 2
       register: result
