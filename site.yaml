@@ -142,7 +142,7 @@
     - name: print out the result
       debug: var=result
 
-- name: verify IP routing table (RIB)
+- name: check the IP routing table (RIB)
   hosts: switches
   gather_facts: yes
   vars:
@@ -162,6 +162,16 @@
         waitfor:
           - "result[0] contains '172.16.0.0/24'"
           - "result[0] contains '172.16.1.0/24'"
+          - "result[0] contains '172.16.2.0/24'"
+          - "result[0] contains '172.16.11.0/24'"
+          - "result[0] contains '172.16.12.0/24'"
+          - "result[0] contains '172.16.13.0/24'"
+          - "result[0] contains '172.16.21.0/24'"
+          - "result[0] contains '172.16.22.0/24'"
+          - "result[0] contains '172.16.23.0/24'"
+          - "result[0] contains '172.16.30.0/24'"
+          - "result[0] contains '172.16.40.0/24'"
+          - "result[0] contains '172.16.50.0/24'"
         interval: 1
         retries: 2
       register: result
