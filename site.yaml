@@ -113,7 +113,7 @@
   hosts: switches
   gather_facts: no
   tasks:
-    - pause: seconds=30
+    - pause: seconds=60
 
 - name: verify BGP peering
   hosts: switches
