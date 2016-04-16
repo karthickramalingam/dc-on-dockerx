@@ -1,5 +1,5 @@
 ---
-- name: verify the switch version
+- name: check the switch version
   hosts: switches
   gather_facts: yes
   vars:
@@ -10,6 +10,7 @@
       password: "{{ ops_password }}"
       host: "{{ ansible_host }}"
       port: "{{ ansible_port }}"
+    expected: OpenSwitch
   tasks:
     - name: show version CLI
       ops_command:
@@ -17,7 +18,7 @@
           - show version
         provider: "{{ cli }}"
         waitfor:
-          - "result[0] contains OpenSwitch"
+          - "result[0] contains {{ expected }}"
         interval: 1
         retries: 2
       register: result
