@@ -161,6 +161,7 @@
         provider: "{{ cli }}"
         waitfor:
           - "result[0] contains '172.16.0.0/24'"
+          - "result[0] contains '172.16.1.0/24'"
         interval: 1
         retries: 2
       register: result
