@@ -6,6 +6,11 @@ ops_vrfs:
       - as_number: 65000
         router_id: 172.16.0.1
         networks: [172.16.0.0/24, 172.16.1.0/24, 172.16.2.0/24]
+        neighbors:
+          - address: 172.16.1.2
+            remote_as: 65001
+          - address: 172.16.2.2
+            remote_as: 65002
 
 ops_ports:
   - name: 1

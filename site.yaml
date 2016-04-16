@@ -1,7 +1,7 @@
 ---
 - name: verify the switch version
   hosts: switches
-  gather_facts: no
+  gather_facts: yes
   vars:
     ansible_user: admin
     ops_debug: no
@@ -28,7 +28,7 @@
 
 - name: basic L2/L3 for fabric switches
   hosts: fabrics
-  gather_facts: yes
+  gather_facts: no
   vars:
     ansible_user: admin
     ops_debug: no
@@ -38,7 +38,7 @@
 
 - name: basic L2/L3 for spine switches
   hosts: spines
-  gather_facts: yes
+  gather_facts: no
   vars:
     ansible_user: admin
     ops_debug: no
@@ -48,7 +48,7 @@
 
 - name: basic L2/L3 for leaf switches
   hosts: leaves
-  gather_facts: yes
+  gather_facts: no
   vars:
     ansible_user: admin
     ops_debug: no
@@ -58,7 +58,7 @@
 
 - name: BGP for fabric switches
   hosts: fabrics
-  gather_facts: yes
+  gather_facts: no
   vars:
     ansible_user: admin
     ops_debug: no
@@ -67,7 +67,7 @@
 
 - name: BGP for spine switches
   hosts: spines
-  gather_facts: yes
+  gather_facts: no
   vars:
     ansible_user: admin
     ops_debug: no
@@ -76,7 +76,7 @@
 
 - name: BGP for leaf switches
   hosts: leaves
-  gather_facts: yes
+  gather_facts: no
   vars:
     ansible_user: admin
     ops_debug: no
@@ -85,7 +85,7 @@
 
 - name: verify the switch configuration
   hosts: switches
-  gather_facts: no
+  gather_facts: yes
   vars:
     ansible_user: admin
     ops_debug: no
