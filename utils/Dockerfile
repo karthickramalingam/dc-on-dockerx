@@ -1,4 +1,4 @@
-FROM openswitch/genericx86-64
+FROM keinohguchi/openswitch:20160407120531
 
 MAINTAINER Kei Nohguchi <kei@nohguchi.com>
 
