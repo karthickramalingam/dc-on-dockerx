@@ -1,6 +1,6 @@
 [submodule "roles/switch"]
 	path = roles/switch
-	url = git@github.com:keinohguchi/ops-switch-role
+	url = https://github.com/keinohguchi/ops-switch-role
 [submodule "roles/bgp"]
 	path = roles/bgp
-	url = git@github.com:keinohguchi/ops-bgp-role
+	url = https://github.com/keinohguchi/ops-bgp-role
