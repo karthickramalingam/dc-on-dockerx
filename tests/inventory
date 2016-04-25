@@ -1,9 +1,0 @@
-[local]
-localhost
-
-[switch:vars]
-ops_username=netop
-ops_password=netop
-
-[switch]
-ops ansible_host=ops ansible_port=22
