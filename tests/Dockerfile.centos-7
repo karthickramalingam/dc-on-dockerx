@@ -37,13 +37,8 @@ RUN pip install paramiko PyYAML Jinja2 httplib2 six
 
 # Prepare the ansible environment
 RUN mkdir /etc/ansible
-# We'll mount the top level directory, so that we can
-# use the same hosts and ansible.cfg files in the test.
-#
-# Please take a look at the ~/.travis.yml file for more
-# detail.
-#ADD inventory /etc/ansible/hosts
-#ADD ansible.cfg /etc/ansible/ansible.cfg
+ADD inventory /etc/ansible/hosts
+ADD ansible.cfg /etc/ansible/ansible.cfg
 
 # Copy the ssh private key
 RUN mkdir /root/.ssh
