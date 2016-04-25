@@ -14,6 +14,7 @@ env:
     role_under_test: switch
     switch_user: admin
     ansible_ops: -vvv
+    test_path: roles/switch/tests
     # Ubuntu/14.04 is the default ansible control machine distribution
     distribution: ubuntu
     version: 14.04
@@ -33,7 +34,7 @@ services:
 
 before_install:
   # OpenSwitch container
-  - 'sudo docker build --pull=true --rm=true --file=roles/switch/tests/Dockerfile.openswitch --tag=ops:local roles/switch/tests'
+  - 'sudo docker build --pull=true --rm=true --file="${test_path}"/Dockerfile.openswitch --tag=ops:local "${test_path}"'
 
   # Ansible control machine container
   - 'sudo docker pull ${distribution}:${version}'
