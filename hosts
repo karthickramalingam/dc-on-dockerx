@@ -14,6 +14,10 @@ leaf1  ansible_port=13022
 leaf2  ansible_port=14022
 leaf3  ansible_port=15022
 
+# We use fab1 as a test switch.
+[test]
+switch ansible_port=10022
+
 [switches:children]
 fabrics
 spines
