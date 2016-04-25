@@ -13,7 +13,7 @@ env:
   global:
     role_under_test: switch
     switch_user: admin
-    ansible_ops: "-vvv -i /etc/ansible/hosts"
+    ansible_ops: "-vvv"
     test_path: roles/switch/tests
     # Ubuntu/14.04 is the default ansible control machine distribution
     distribution: ubuntu
