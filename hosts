@@ -5,6 +5,10 @@ ops_username=netop
 ops_password=netop
 ops_system_hostname="{{ inventory_hostname }}"
 
+# This is for the test playbooks in tests/*.yml.
+[switch]
+ops ansible_host=ops ansible_port=22
+
 [all]
 docker
 fab1   ansible_port=10022
