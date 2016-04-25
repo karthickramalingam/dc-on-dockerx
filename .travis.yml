@@ -48,7 +48,7 @@ script:
   - 'sudo docker run --privileged --detach -P -v /tmp:/tmp -v /dev/log:/dev/log -v /sys/fs/cgroup:/sys/fs/cgroup ops:local /sbin/init > "${switch_id}"'
 
   # Run Ansible control machine container in detached state
-  - 'sudo docker run --detach --link "$(cat ${switch_id})":ops --volume="${PWD}"/roles:/etc/ansible/roles:rw --volume="${PWD}"/"${test_path}":/etc/ansible/tests:rw ${run_ops} ${distribution}-${version}:local ${init} > "${ansible_id}"'
+  - 'sudo docker run --detach --link "$(cat ${switch_id})":ops --volume="${PWD}"/roles:/etc/ansible/roles:rw --volume="${PWD}"/tests:/etc/ansible/tests:rw ${run_ops} ${distribution}-${version}:local ${init} > "${ansible_id}"'
 
   # Ansible syntax check
   - 'sudo docker exec --tty "$(cat ${ansible_id})" env TERM=xterm ansible-playbook /etc/ansible/tests/"${test_filename}" --syntax-check'
