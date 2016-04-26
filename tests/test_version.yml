@@ -1,6 +1,6 @@
 ---
 - name: noop test with switch role
-  hosts: switch
+  hosts: test_switch
   vars:
     ansible_user: admin
     ops_debug: yes

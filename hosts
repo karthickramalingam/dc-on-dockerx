@@ -1,5 +1,5 @@
 # switch is for tests/* playbooks.
-[switch:vars]
+[test_switch:vars]
 ansible_host=ops
 ops_username=netop
 ops_password=netop
@@ -10,7 +10,7 @@ ops_username=netop
 ops_password=netop
 ops_system_hostname="{{ inventory_hostname }}"
 
-[switch]
+[test_switch]
 ops ansible_port=22
 
 [all]
