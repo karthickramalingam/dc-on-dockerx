@@ -52,7 +52,7 @@ script:
   - 'sudo docker run --detach --link "$(cat ${switch_id})":ops --volume="${PWD}":/etc/ansible:rw ${run_ops} ${distribution}-${version}:local ${init} > "${ansible_id}"'
 
   # Ansible syntax check
-  - 'sudo docker exec --tty "$(cat ${ansible_id})" "${ansible_env}" ansible-playbook "${ansible_ops}" /etc/ansible/tests/"${test_filename}" --syntax-check'
+  - 'sudo docker exec --tty "$(cat ${ansible_id})" env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg ansible-playbook "${ansible_ops}" /etc/ansible/tests/"${test_filename}" --syntax-check'
 
   # Run the test
   - 'sudo docker exec --tty "$(cat ${ansible_id})" "${ansible_env}" ansible-playbook "${ansible_ops}" -u "${switch_user}" /etc/ansible/tests/"${test_filename}"'
