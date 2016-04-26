@@ -1,16 +1,14 @@
 [all:vars]
-ansible_host=vm0
 ops_username=netop
 # This should be correctly protected...
 ops_password=netop
-ops_system_hostname="{{ inventory_hostname }}"
 
 # This is for the test playbooks in tests/*.yml.
 [switch]
 ops ansible_host=ops ansible_port=22
 
 [all]
-docker
+docker ansible_host=vm0
 fab1   ansible_port=10022
 spine1 ansible_port=11022
 spine2 ansible_port=12022
@@ -18,9 +16,9 @@ leaf1  ansible_port=13022
 leaf2  ansible_port=14022
 leaf3  ansible_port=15022
 
-# We use fab1 as a test switch.
-[test]
-switch ansible_port=10022
+[switches:vars]
+ansible_host=vm0
+ops_system_hostname="{{ inventory_hostname }}"
 
 [switches:children]
 fabrics
