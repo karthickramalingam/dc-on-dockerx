@@ -14,7 +14,6 @@ env:
     role_under_test: switch
     switch_user: admin
     ansible_ops: "-vvv"
-    ansible_env: "env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/test/ansible.cfg"
     test_path: roles/switch/tests
     # Ubuntu/14.04 is the default ansible control machine distribution
     distribution: ubuntu
