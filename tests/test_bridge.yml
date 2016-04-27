@@ -1,0 +1,56 @@
+---
+- name: simple bridge with all L2 ports
+  hosts: switches@travis
+  gather_facts: no
+  vars:
+    ansible_user: admin
+    ops_debug: yes
+    cli:
+      username: "{{ ops_username }}"
+      password: "{{ ops_password }}"
+      host: "{{ ansible_host }}"
+      port: "{{ ansible_port }}"
+
+  roles:
+    - role: switch
+      ops_system_hostname: bridge
+      ops_intf_admin_state: up
+      ops_bridges:
+        - name: bridge_normal
+          ports: [ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10,
+                  11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                  31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                  41, 42, 43, 44, 45, 46, 47, 48]
+
+  post_tasks:
+    - name: check if ports are L2 access ports
+      ops_command:
+        commands:
+          - show hostname
+          - show interface 1 brief
+          - show interface 2 brief
+          - show interface 3 brief
+          - show interface 4 brief
+          - show interface 45 brief
+          - show interface 46 brief
+          - show interface 47 brief
+          - show interface 48 brief
+        provider: "{{ cli }}"
+        waitfor:
+          - "result[0] contains 'bridge'"
+          - "result[1] contains 'access'"
+          - "result[2] contains 'access'"
+          - "result[3] contains 'access'"
+          - "result[4] contains 'access'"
+          - "result[5] contains 'access'"
+          - "result[6] contains 'access'"
+          - "result[7] contains 'access'"
+          - "result[8] contains 'access'"
+        interval: 1
+        retries: 2
+      register: result
+      connection: local
+    - name: debug the result
+      debug: var=result
+      when: ops_debug
