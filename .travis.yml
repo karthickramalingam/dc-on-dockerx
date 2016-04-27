@@ -11,9 +11,9 @@ dist: trusty
 # https://github.com/travis-ci/travis-ci/issues/1519
 env:
   global:
-    role_under_test: switch
     switch_user: admin
     ansible_ops: "-vvv"
+    build_path: utils
     test_path: roles/switch/tests
     # Ubuntu/14.04 is the default ansible control machine distribution
     distribution: ubuntu
@@ -43,7 +43,7 @@ services:
 
 before_install:
   # OpenSwitch container
-  - 'sudo docker build --pull=true --rm=true --file=utils/Dockerfile --tag=ops:local tests'
+  - 'sudo docker build --pull=true --rm=true --file="${build_path}"/Dockerfile --tag=ops:local "${build_path}"'
 
   # Ansible control machine container
   - 'sudo docker pull ${distribution}:${version}'

@@ -1,1 +1,0 @@
-../utils/ops-if-netns.sh
