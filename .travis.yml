@@ -28,6 +28,13 @@ env:
       version: 7
       init: /usr/lib/systemd/systemd
       run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    - test_filename: test_hostname.yml
+    - test_filename: test_hostname.yml
+      distribution: centos
+      version: 7
+      init: /usr/lib/systemd/systemd
+      run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+
 
 services:
   - docker

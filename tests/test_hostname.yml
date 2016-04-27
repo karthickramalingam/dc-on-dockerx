@@ -1,0 +1,32 @@
+---
+- name: configure the hostname through switch role
+  hosts: switches@travis
+  gather_facts: no
+  vars:
+    ansible_user: admin
+    ops_debug: yes
+    cli:
+      username: "{{ ops_username }}"
+      password: "{{ ops_password }}"
+      host: "{{ ansible_host }}"
+      port: "{{ ansible_port }}"
+
+  roles:
+    - role: switch
+      ops_system_hostname: simple_hostname
+
+  post_tasks:
+    - name: check the hostname on the switch
+      ops_command:
+        commands:
+          - show hostname
+        provider: "{{ cli }}"
+        waitfor:
+          - "result[0] contains 'simple_hostname'"
+        interval: 1
+        retries: 2
+      register: result
+      connection: local
+    - name: debug the result
+      debug: var=result
+      when: ops_debug
