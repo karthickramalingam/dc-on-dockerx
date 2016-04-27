@@ -33,4 +33,5 @@ ops_username=netop
 ops_password=netop
 
 [switches@travis]
-ops ansible_port=22
+#ops ansible_port=22
+fab1 ansible_port=10022

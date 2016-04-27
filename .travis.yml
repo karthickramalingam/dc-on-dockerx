@@ -14,7 +14,6 @@ env:
     switch_user: admin
     ansible_ops: "-vvv"
     build_path: utils
-    test_path: roles/switch/tests
     # Ubuntu/14.04 is the default ansible control machine distribution
     distribution: ubuntu
     version: 14.04
@@ -47,7 +46,7 @@ before_install:
 
   # Ansible control machine container
   - 'sudo docker pull ${distribution}:${version}'
-  - 'sudo docker build --rm=true --file="${test_path}"/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:local "${test_path}"'
+  - 'sudo docker build --rm=true --file="${build_path}"/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:local "${build_path}"'
 
 script:
   - switch_id=$(mktemp)
