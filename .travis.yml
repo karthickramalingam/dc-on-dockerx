@@ -36,6 +36,7 @@ env:
     # We only use the ubuntu as the control machine
     # rest of the tests.
     - test_filename: test_bridge.yml
+    - test_filename: test_switch.yml
 
 services:
   - docker
