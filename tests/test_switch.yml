@@ -1,19 +1,19 @@
 ---
-- name: simple switch with four L3 interfaces and remaining L2 ports
+- name: simple switch with ten ports, five L2 and five L3
   hosts: switches@travis
   gather_facts: yes
   vars:
     ansible_user: admin
     ops_debug: yes
     cli:
-      username: "{{ ops_username }}"
-      password: "{{ ops_password }}"
+      username: netop
+      password: netop
       host: "{{ ansible_host }}"
       port: "{{ ansible_port }}"
 
   roles:
     - role: switch
-      ops_system_hostname: test_switch
+      ops_system_hostname: SimpleSwitch
       ops_intf_admin_state: up
       ops_vrfs:
         - name: vrf_default
@@ -61,7 +61,7 @@
           - show ip route
         provider: "{{ cli }}"
         waitfor:
-          - "result[0] contains 'test_switch'"
+          - "result[0] contains 'SimpleSwitch'"
           - "result[1] contains 'routed'"
           - "result[2] contains 'routed'"
           - "result[3] contains 'access'"

@@ -6,8 +6,8 @@
     ansible_user: admin
     ops_debug: yes
     cli:
-      username: "{{ ops_username }}"
-      password: "{{ ops_password }}"
+      username: netop
+      password: netop
       host: "{{ ansible_host }}"
       port: "{{ ansible_port }}"
 
