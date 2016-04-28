@@ -43,11 +43,11 @@ services:
 
 before_install:
   # OpenSwitch container
-  - 'sudo docker build --pull=true --rm=true --file="${build_path}"/Dockerfile --tag=ops:local "${build_path}"'
+  - 'sudo docker build --pull=true --rm=true --file=${build_path}/Dockerfile --tag=ops:local ${build_path}'
 
   # Ansible control machine container
   - 'sudo docker pull ${distribution}:${version}'
-  - 'sudo docker build --rm=true --file="${build_path}"/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:local "${build_path}"'
+  - 'sudo docker build --rm=true --file=${build_path}/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:local ${build_path}'
 
 script:
   - switch_id=$(mktemp)
