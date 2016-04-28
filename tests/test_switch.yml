@@ -49,8 +49,8 @@
         - name: 9
         - name: 10
 
-  post_tasks:
-    - name: Check if ports are correctly L3 ports
+  tasks:
+    - name: Check if ports are correctly configured as L2 or L3 ports
       ops_command:
         commands:
           - show hostname

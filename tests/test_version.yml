@@ -13,7 +13,7 @@
   roles:
     - switch
 
-  post_tasks:
+  tasks:
     - name: check if switch responds to 'show version' CLI
       ops_command:
         commands:

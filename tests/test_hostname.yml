@@ -15,7 +15,7 @@
     - role: switch
       ops_system_hostname: simple_hostname
 
-  post_tasks:
+  tasks:
     - name: check the hostname on the switch
       ops_command:
         commands:
