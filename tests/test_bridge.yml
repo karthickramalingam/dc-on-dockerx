@@ -17,7 +17,7 @@
       ops_intf_admin_state: up
       ops_bridges:
         - name: bridge_normal
-          ports: [ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]
+          ports: [ 1,  2,  3,  4,  5,  6,  7,  8]
       ops_interfaces:
         - name: 1
         - name: 2
