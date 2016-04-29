@@ -48,7 +48,7 @@ RUN easy_install pip
 # of the paramiko-1.6.0 until I figure that out.
 #RUN pip install cffi hashlib cryptography \
 #                paramiko PyYAML Jinja2 httplib2 six
-RUN pip install paramiko=1.16.0 PyYAML Jinja2 httplib2 six
+RUN pip install paramiko==1.16.0 PyYAML Jinja2 httplib2 six
 
 # Get the latest ansible
 RUN mkdir /opt/ansible
