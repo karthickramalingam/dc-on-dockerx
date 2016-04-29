@@ -34,7 +34,7 @@ rm -f /lib/systemd/system/anaconda.target.wants/*;
 # Ansible required package(s)
 RUN yum -y groupinstall "Development tools"
 RUN yum -y install openssl-devel libffi-devel epel-release git sudo \
-                       python-devel python-setuptools python-cffi
+                       python-devel python-setuptools
 RUN yum clean all
 
 # Disable requiretty
@@ -42,7 +42,7 @@ RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
 
 # http://docs.ansible.com/ansible/intro_installation.html#running-from-source
 RUN easy_install pip
-RUN pip install paramiko PyYAML Jinja2 httplib2 six
+RUN pip install cffi cryptography paramiko PyYAML Jinja2 httplib2 six
 
 # Get the latest ansible
 RUN mkdir /opt/ansible
