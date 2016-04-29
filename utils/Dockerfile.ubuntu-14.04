@@ -21,9 +21,9 @@ RUN mkdir /etc/ansible
 
 # Required package(s)
 RUN apt-get -y update && \
-    apt-get install -y openssh-client libffi-dev git \
+    apt-get install -y build-essential openssh-client libffi-dev git \
                        python-keyczar python-setuptools \
-                       python-pkg-resources python-cffi
+                       python-pkg-resources
 
 # http://docs.ansible.com/ansible/intro_installation.html#running-from-source
 RUN easy_install pip
