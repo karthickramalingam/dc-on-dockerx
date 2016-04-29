@@ -1,17 +1,19 @@
-[switches:vars]
-ansible_host=vm0
-ops_username=netop
-ops_password=netop
-ops_system_hostname="{{ inventory_hostname }}"
+[all:vars]
+ansible_host=localhost
 
 [all]
-docker ansible_host=vm0
+docker
 fab1   ansible_port=10022
 spine1 ansible_port=11022
 spine2 ansible_port=12022
 leaf1  ansible_port=13022
 leaf2  ansible_port=14022
 leaf3  ansible_port=15022
+
+[switches:vars]
+ops_username=netop
+ops_password=netop
+ops_system_hostname="{{ inventory_hostname }}"
 
 [switches:children]
 fabrics
@@ -31,4 +33,4 @@ leaf[1:3]
 [switches@travis]
 ops ansible_host=ops ansible_port=22
 # Comment out below if you want to use fab1 as a test switch.
-#ops ansible_host=vm0 ansible_port=10022
+#ops ansible_host=localhost ansible_port=10022
