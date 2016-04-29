@@ -64,7 +64,7 @@
     ansible_user: admin
     ops_debug: no
   roles:
-    - role: bgp
+    - { role: bgp, tags: [ bgp ] }
 
 - name: BGP configuration on spine switches
   hosts: spines
@@ -73,7 +73,7 @@
     ansible_user: admin
     ops_debug: no
   roles:
-    - role: bgp
+    - { role: bgp, tags: [ bgp ] }
 
 - name: BGP configuration on leaf switches
   hosts: leaves
@@ -82,7 +82,7 @@
     ansible_user: admin
     ops_debug: no
   roles:
-    - role: bgp
+    - { role: bgp, tags: [ bgp ] }
 
 - name: check the switch configuration
   hosts: switches
@@ -115,6 +115,7 @@
   gather_facts: no
   tasks:
     - pause: seconds=60
+      tags: [ bgp ]
 
 - name: check the BGP peering
   hosts: switches
@@ -129,6 +130,7 @@
       port: "{{ ansible_port }}"
   tasks:
     - name: show ip bgp neighbors
+      tags: [ bgp ]
       ops_command:
         commands:
           - show ip bgp neighbors
@@ -140,6 +142,7 @@
       register: result
       connection: local
     - name: print out the result
+      tags: [ bgp ]
       debug: var=result
 
 - name: check the IP routing table (RIB)
@@ -155,6 +158,7 @@
       port: "{{ ansible_port }}"
   tasks:
     - name: show ip route
+      tags: [ bgp ]
       ops_command:
         commands:
           - show ip route
@@ -177,4 +181,5 @@
       register: result
       connection: local
     - name: print out the result
+      tags: [ bgp ]
       debug: var=result
