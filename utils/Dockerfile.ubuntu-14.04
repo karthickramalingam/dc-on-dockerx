@@ -27,7 +27,7 @@ RUN apt-get -y update && \
 
 # http://docs.ansible.com/ansible/intro_installation.html#running-from-source
 RUN easy_install pip
-RUN pip install paramiko PyYAML Jinja2 httplib2 six
+RUN pip install cffi paramiko PyYAML Jinja2 httplib2 six
 
 # Get the latest ansible
 RUN mkdir /opt/ansible
