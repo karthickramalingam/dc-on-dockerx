@@ -6,7 +6,7 @@
 # as the default networks.
 #
 # https://github.com/docker/docker/issues/21741
-net_prefix="zzzz-net"
+net_prefix="znet"
 
 # create fabric networks
 create_fabric_networks()
