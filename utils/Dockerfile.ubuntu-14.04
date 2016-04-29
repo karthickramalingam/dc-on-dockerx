@@ -21,7 +21,7 @@ RUN mkdir /etc/ansible
 
 # Required package(s)
 RUN apt-get -y update && \
-    apt-get install -y openssh-client git \
+    apt-get install -y openssh-client libffi-dev git \
                        python-keyczar python-setuptools \
                        python-pkg-resources
 
