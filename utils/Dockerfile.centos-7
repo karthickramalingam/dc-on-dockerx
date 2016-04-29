@@ -42,7 +42,8 @@ RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
 
 # http://docs.ansible.com/ansible/intro_installation.html#running-from-source
 RUN easy_install pip
-RUN pip install cffi cryptography paramiko PyYAML Jinja2 httplib2 six
+RUN pip install cffi hashlib cryptography \
+                paramiko PyYAML Jinja2 httplib2 six
 
 # Get the latest ansible
 RUN mkdir /opt/ansible
