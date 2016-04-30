@@ -16,7 +16,7 @@
         - { src: "~/.ssh/{{ your_public_key}}", dst: "{{ your_public_key }}" }
     - name: install pip
       become: yes
-      apt: name=python-pip state=present update_cache=no
+      easy_install: name=pip state=present
     - name: install docker-compose
       become: yes
       pip: name=docker-compose state=present
