@@ -5,6 +5,9 @@
 Creating your own data-center (DC) on your laptop with Ansible and
 Docker-Compose in a snap!
 
+Here is the [screencast](https://asciinema.org/a/44142) to show you
+how to create your own DC in your vagrant environment.
+
 ## Requirements
 
 Ansible 2.1 and above, because OpenSwitch ansible roles, e.g. [ops switch role](http://github.com/keinohguchi/ops-switch-role), depends on Ansible 2.1 modules.
