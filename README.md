@@ -5,8 +5,11 @@
 Creating your own data-center (DC) on your laptop with Ansible and
 Docker-Compose in a snap!
 
-Here is the [screen cast](https://asciinema.org/a/44142) to show you
-how to create your own DC in your vagrant environment.
+Here is [dc-on-docker](https://github.com/keinohguchi/dc-in-docker)
+in [action](https://asciinema.org/a/44142) which shows you how to create
+your own Ansible control machine and the whole DC from scratch,
+with [vagrant](http://vagrantup.com), [docker](http://docker.com),
+and [OpenSwitch](http://openswitch.net)!.
 
 ## Requirements
 
