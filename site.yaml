@@ -3,7 +3,6 @@
   hosts: switches
   gather_facts: yes
   vars:
-    ansible_user: admin
     ops_debug: no
     expected: OpenSwitch
   tasks:
@@ -13,7 +12,6 @@
   hosts: fabrics
   gather_facts: no
   vars:
-    ansible_user: admin
     ops_debug: no
   roles:
     - role: switch
@@ -23,7 +21,6 @@
   hosts: spines
   gather_facts: no
   vars:
-    ansible_user: admin
     ops_debug: no
   roles:
     - role: switch
@@ -33,7 +30,6 @@
   hosts: leaves
   gather_facts: no
   vars:
-    ansible_user: admin
     ops_debug: no
   roles:
     - role: switch
@@ -43,7 +39,6 @@
   hosts: fabrics
   gather_facts: no
   vars:
-    ansible_user: admin
     ops_debug: no
   roles:
     - { role: bgp, tags: [ bgp ] }
@@ -52,7 +47,6 @@
   hosts: spines
   gather_facts: no
   vars:
-    ansible_user: admin
     ops_debug: no
   roles:
     - { role: bgp, tags: [ bgp ] }
@@ -61,7 +55,6 @@
   hosts: leaves
   gather_facts: no
   vars:
-    ansible_user: admin
     ops_debug: no
   roles:
     - { role: bgp, tags: [ bgp ] }
@@ -70,7 +63,6 @@
   hosts: switches
   gather_facts: no
   vars:
-    ansible_user: admin
     ops_debug: no
     cli:
       username: "{{ ops_username }}"
@@ -103,7 +95,6 @@
   hosts: switches
   gather_facts: no
   vars:
-    ansible_user: admin
     ops_debug: no
     cli:
       username: "{{ ops_username }}"
@@ -131,7 +122,6 @@
   hosts: switches
   gather_facts: yes
   vars:
-    ansible_user: admin
     ops_debug: no
     cli:
       username: "{{ ops_username }}"
