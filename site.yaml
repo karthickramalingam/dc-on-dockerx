@@ -6,7 +6,7 @@
     ops_debug: no
     expected: OpenSwitch
   tasks:
-    - include: tasks/check_version.yaml
+    - include: tasks/cli/check_version.yaml
 
 - name: L2/L3 configuration on fabric switches
   hosts: fabrics
