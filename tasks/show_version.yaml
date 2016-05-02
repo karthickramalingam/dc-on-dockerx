@@ -3,7 +3,7 @@
   ops_command:
     commands:
       - show version
-    provider: "{{ cli }}"
+    provider: "{{ ops_provider }}"
     waitfor:
       - "result[0] contains {{ expected }}"
     interval: 1
