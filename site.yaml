@@ -73,7 +73,7 @@
   vars:
     ops_debug: yes
   tasks:
-    - include: tasks/check_running_config.yaml
+    - include: tasks/cli/check_running_config.yaml
 
 - name: wait for BGP peering up
   hosts: switches
