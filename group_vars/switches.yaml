@@ -1,0 +1,4 @@
+---
+ops_username: netop
+ops_password: netop
+ops_system_hostname: "{{ inventory_hostname }}"

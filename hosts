@@ -10,11 +10,6 @@ leaf1  ansible_port=13022
 leaf2  ansible_port=14022
 leaf3  ansible_port=15022
 
-[switches:vars]
-ops_username=netop
-ops_password=netop
-ops_system_hostname="{{ inventory_hostname }}"
-
 [switches:children]
 fabrics
 spines
