@@ -1,0 +1,4 @@
+---
+# Your ssh public key file name to be used for the switch
+# ssh authentication.
+your_public_key: id_rsa.pub

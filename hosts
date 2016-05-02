@@ -2,7 +2,7 @@
 ansible_host=localhost
 
 [all]
-docker your_public_key=id_rsa.pub
+docker
 fab1   ansible_port=10022
 spine1 ansible_port=11022
 spine2 ansible_port=12022
