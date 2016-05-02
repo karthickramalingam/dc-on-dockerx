@@ -1,5 +1,5 @@
 ---
-- name: show running-config
+- name: check running-config
   ops_command:
     commands:
       - show running-config
