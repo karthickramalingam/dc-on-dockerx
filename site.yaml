@@ -41,7 +41,7 @@
   vars:
     ops_debug: no
   tasks:
-    - include: tasks/check_hostname.yaml
+    - include: tasks/cli/check_hostname.yaml
 
 - name: BGP configuration on fabric switches
   hosts: fabrics
