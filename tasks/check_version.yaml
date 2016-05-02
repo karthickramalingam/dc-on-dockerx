@@ -1,5 +1,5 @@
 ---
-- name: check switch version
+- name: check the show version CLI output
   ops_command:
     commands:
       - show version
@@ -11,6 +11,6 @@
   register: result
   connection: local
 
-- name: debug the result
+- name: print the CLI output
   debug: var=result
   when: ops_debug

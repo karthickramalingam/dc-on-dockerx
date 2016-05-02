@@ -1,11 +1,11 @@
 ---
-- name: check running-config CLI output
+- name: check hostname CLI output
   ops_command:
     commands:
-      - show running-config
+      - show hostname
     provider: "{{ ops_provider }}"
     waitfor:
-      - "result[0] contains 'hostname {{ ops_system_hostname }}'"
+      - "result[0] contains '{{ ops_system_hostname }}'"
     interval: 1
     retries: 2
   register: result

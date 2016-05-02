@@ -35,6 +35,14 @@
     - role: switch
       ops_intf_admin_state: up
 
+- name: check the switch hostname
+  hosts: switches
+  gather_facts: no
+  vars:
+    ops_debug: no
+  tasks:
+    - include: tasks/check_hostname.yaml
+
 - name: BGP configuration on fabric switches
   hosts: fabrics
   gather_facts: no
@@ -63,7 +71,7 @@
   hosts: switches
   gather_facts: no
   vars:
-    ops_debug: no
+    ops_debug: yes
   tasks:
     - include: tasks/check_running_config.yaml
 
