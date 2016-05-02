@@ -41,7 +41,7 @@
   tasks:
     - name: check the reachability
       ping:
-    - name: move all the interfaces to the right namespace
+    - name: move dplane interface to the net namespace by utils/ops-if-netns.sh
       become: yes
       vars:
         done: /tmp/ops_if_netns.done
