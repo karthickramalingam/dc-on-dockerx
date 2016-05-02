@@ -65,19 +65,7 @@
   vars:
     ops_debug: no
   tasks:
-    - name: show running-config
-      ops_command:
-        commands:
-          - show running-config
-        provider: "{{ ops_provider }}"
-        waitfor:
-          - "result[0] contains 'hostname {{ ops_system_hostname }}'"
-        interval: 1
-        retries: 2
-      register: result
-      connection: local
-    - name: print out the result
-      debug: var=result
+    - include: tasks/show_running_config.yaml
 
 - name: wait for BGP peering up
   hosts: switches

@@ -1,16 +1,14 @@
 ---
-- name: show version CLI
+- name: show running-config
   ops_command:
     commands:
-      - show version
+      - show running-config
     provider: "{{ ops_provider }}"
     waitfor:
-      - "result[0] contains {{ expected }}"
+      - "result[0] contains 'hostname {{ ops_system_hostname }}'"
     interval: 1
     retries: 2
   register: result
   connection: local
-
-- name: debug the result
+- name: print out the result
   debug: var=result
-  when: ops_debug
