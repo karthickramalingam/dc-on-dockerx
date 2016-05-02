@@ -1,5 +1,5 @@
 ---
-- name: show version CLI
+- name: check switch version
   ops_command:
     commands:
       - show version
