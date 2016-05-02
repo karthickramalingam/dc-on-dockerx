@@ -64,17 +64,12 @@
   gather_facts: no
   vars:
     ops_debug: no
-    cli:
-      username: "{{ ops_username }}"
-      password: "{{ ops_password }}"
-      host: "{{ ansible_host }}"
-      port: "{{ ansible_port }}"
   tasks:
     - name: show running-config
       ops_command:
         commands:
           - show running-config
-        provider: "{{ cli }}"
+        provider: "{{ ops_provider }}"
         waitfor:
           - "result[0] contains 'hostname {{ ops_system_hostname }}'"
         interval: 1
@@ -96,18 +91,13 @@
   gather_facts: no
   vars:
     ops_debug: no
-    cli:
-      username: "{{ ops_username }}"
-      password: "{{ ops_password }}"
-      host: "{{ ansible_host }}"
-      port: "{{ ansible_port }}"
   tasks:
     - name: show ip bgp neighbors
       tags: [ bgp ]
       ops_command:
         commands:
           - show ip bgp neighbors
-        provider: "{{ cli }}"
+        provider: "{{ ops_provider }}"
         waitfor:
           - "result[0] contains 'state: Established'"
         interval: 1
@@ -123,18 +113,13 @@
   gather_facts: yes
   vars:
     ops_debug: no
-    cli:
-      username: "{{ ops_username }}"
-      password: "{{ ops_password }}"
-      host: "{{ ansible_host }}"
-      port: "{{ ansible_port }}"
   tasks:
     - name: show ip route
       tags: [ bgp ]
       ops_command:
         commands:
           - show ip route
-        provider: "{{ cli }}"
+        provider: "{{ ops_provider }}"
         waitfor:
           - "result[0] contains '172.16.0.0/24'"
           - "result[0] contains '172.16.1.0/24'"
