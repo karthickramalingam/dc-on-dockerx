@@ -3,7 +3,6 @@
   hosts: docker
   gather_facts: no
   vars:
-    your_public_key: id_rsa.pub
     docker_compose_file: docker-compose6.yaml
     docker_network_file: docker-network6.sh
   tasks:

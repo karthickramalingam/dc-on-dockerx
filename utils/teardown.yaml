@@ -2,7 +2,6 @@
 - name: teardown docker containers
   hosts: docker
   vars:
-    your_public_key: id_rsa.pub
     network_done_file: /tmp/docker_network.done
   gather_facts: no
   tasks:
