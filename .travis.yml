@@ -10,6 +10,7 @@ dist: trusty
 # We don't have a full featured matrix support in travis:
 # https://github.com/travis-ci/travis-ci/issues/1519
 env:
+  DOCKER_COMPOSE_VERSION: 1.4.2
   global:
     switch_user: admin
     ansible_ops: "-vvv"
@@ -42,6 +43,12 @@ services:
   - docker
 
 before_install:
+  # Update docker-compose to the latest
+  - 'sudo rm /usr/local/bin/docker-compose'
+  - 'curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose'
+  - 'chmod +x docker-compose'
+  - 'sudo mv docker-compose /usr/local/bin'
+
   # OpenSwitch container
   - 'sudo docker build --pull=true --rm=true --file=${build_path}/Dockerfile --tag=ops:local ${build_path}'
 
