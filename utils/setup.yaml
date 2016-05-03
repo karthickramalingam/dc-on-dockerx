@@ -2,9 +2,6 @@
 - name: setup docker host
   hosts: docker
   gather_facts: no
-  vars:
-    docker_compose_file: docker-compose6.yaml
-    docker_network_file: docker-network6.sh
   tasks:
     - name: copy files needed to create OpenSwitch docker instance
       copy: src={{ item.src }} dest=~/{{ item.dst }}
@@ -25,10 +22,8 @@
     - name: run all the container
       command: docker-compose up -d
     - name: setup network by utils/docker-network.sh
-      vars:
-        done: /tmp/docker_network.done 
       script: >
-        "{{ docker_network_file }}" >> "{{ done }}" creates="{{ done }}"
+        "{{ docker_network_file }}" >> "{{ network_done_file }}" creates="{{ network_done_file }}"
     - name: wait for docker to come up
       pause: seconds=60
 

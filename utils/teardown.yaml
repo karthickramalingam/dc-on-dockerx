@@ -1,8 +1,6 @@
 ---
 - name: teardown docker containers
   hosts: docker
-  vars:
-    network_done_file: /tmp/docker_network.done
   gather_facts: no
   tasks:
     - name: shutdown containers
