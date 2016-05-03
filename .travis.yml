@@ -83,8 +83,12 @@ script:
   # Run the test
   - 'sudo docker exec --tty "$(cat ${ansible_id})" env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg ansible-playbook "${ansible_ops}" -u "${switch_user}" /etc/ansible/tests/"${test_filename}"'
 
+  # Check if we're sharing the same docker host
+  - sudo docker ps -a
+  - sudo docker images
+
   # Clenaup
-  - sudo bash -c 'cd ${build_path} && docker-compose down'
+  - sudo bash -c "cd ${build_path} && docker-compose --file=${compose_file} down"
   - sudo docker stop "$(cat ${ansible_id})"
   - sudo docker stop "$(cat ${switch_id})"
 
