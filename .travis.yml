@@ -72,7 +72,7 @@ script:
   - ansible_id=$(mktemp)
 
   # Run OpenSwitch through docker-compose
-  - sudo "cd ${build_path} && docker-compose --file=${compose_file} up -d"
+  - sudo bash -c "cd ${build_path} && docker-compose --file=${compose_file} up -d"
 
   # Run OpenSwitch container in privileged and detached state
   - 'sudo docker run --privileged --detach -P -v /tmp:/tmp -v /dev/log:/dev/log -v /sys/fs/cgroup:/sys/fs/cgroup ops:local /sbin/init > "${switch_id}"'
