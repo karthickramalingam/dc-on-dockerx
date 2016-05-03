@@ -12,28 +12,28 @@
   hosts: fabrics
   gather_facts: no
   vars:
+    ops_intf_admin_state: up
     ops_debug: no
   roles:
     - role: switch
-      ops_intf_admin_state: up
 
 - name: L2/L3 configuration on spine switches
   hosts: spines
   gather_facts: no
   vars:
+    ops_intf_admin_state: up
     ops_debug: no
   roles:
     - role: switch
-      ops_intf_admin_state: up
 
 - name: L2/L3 configuration on leaf switches
   hosts: leaves
   gather_facts: no
   vars:
+    ops_intf_admin_state: up
     ops_debug: no
   roles:
     - role: switch
-      ops_intf_admin_state: up
 
 - name: check the switch hostname
   hosts: switches
