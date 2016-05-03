@@ -73,13 +73,13 @@ script:
   - ansible_id=$(mktemp)
 
   # Run OpenSwitch through docker-compose
-  - sudo bash -c "cd ${build_path} && docker-compose --file=${compose_file} up -d"
+  #- sudo bash -c "cd ${build_path} && docker-compose --file=${compose_file} up -d"
 
   # Run OpenSwitch container in privileged and detached state
   - 'sudo docker run --privileged --detach -P -v /tmp:/tmp -v /dev/log:/dev/log -v /sys/fs/cgroup:/sys/fs/cgroup ops:local /sbin/init > "${switch_id}"'
 
   # Run Ansible control machine container in detached state
-  - 'sudo docker run --detach --link fab1:ops --volume="${PWD}":/etc/ansible:rw ${run_ops} ${distribution}-${version}:local ${init} > "${ansible_id}"'
+  - 'sudo docker run --detach --link "$(cat ${switch_id})":ops --volume="${PWD}":/etc/ansible:rw ${run_ops} ${distribution}-${version}:local ${init} > "${ansible_id}"'
 
   # Ansible syntax check
   - 'sudo docker exec --tty "$(cat ${ansible_id})" env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg ansible-playbook "${ansible_ops}" /etc/ansible/tests/"${test_filename}" --syntax-check'
@@ -88,11 +88,11 @@ script:
   - 'sudo docker exec --tty "$(cat ${ansible_id})" env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg ansible-playbook "${ansible_ops}" -u "${switch_user}" /etc/ansible/tests/"${test_filename}"'
 
   # Check if we're sharing the same docker host
-  - sudo docker ps -a
   - sudo docker images
+  - sudo docker ps -a
 
   # Clenaup
-  - sudo bash -c "cd ${build_path} && docker-compose --file=${compose_file} down"
+  #- sudo bash -c "cd ${build_path} && docker-compose --file=${compose_file} down"
   - sudo docker stop "$(cat ${ansible_id})"
   - sudo docker stop "$(cat ${switch_id})"
 
