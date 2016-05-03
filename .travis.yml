@@ -58,7 +58,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
   # Create docker instances by docker-compose
-  - sudo bash -c "cd ${build_path}; docker-compose --file=${compose_file} build"
+  - sudo bash -c "cd ${build_path} && docker-compose --file=${compose_file} build"
 
   # OpenSwitch container
   - sudo docker build --pull=true --rm=true --file=${build_path}/Dockerfile --tag=ops:local ${build_path}
@@ -84,8 +84,9 @@ script:
   - 'sudo docker exec --tty "$(cat ${ansible_id})" env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg ansible-playbook "${ansible_ops}" -u "${switch_user}" /etc/ansible/tests/"${test_filename}"'
 
   # Clenaup
-  - 'sudo docker stop "$(cat ${ansible_id})"'
-  - 'sudo docker stop "$(cat ${switch_id})"'
+  - sudo bash -c 'cd ${build_path} && docker-compose down'
+  - sudo docker stop "$(cat ${ansible_id})"
+  - sudo docker stop "$(cat ${switch_id})"
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
