@@ -11,7 +11,7 @@ dist: trusty
 # https://github.com/travis-ci/travis-ci/issues/1519
 env:
   global:
-    DOCKER_COMPOSE_VERSION: 1.4.2
+    DOCKER_COMPOSE_VERSION: 1.7.0
     compose_file: docker-compose1.yaml
     switch_user: admin
     ansible_ops: "-vvv"
