@@ -23,7 +23,7 @@
       command: docker-compose up -d
     - name: setup network by utils/docker-network.sh
       script: >
-        "{{ docker_network_file }}" >> "{{ network_done_file }}" creates="{{ network_done_file }}"
+        "{{ docker_network_script }}" >> "{{ docker_network_done_file }}" creates="{{ docker_network_done_file }}"
     - name: wait for docker to come up
       pause: seconds=60
 

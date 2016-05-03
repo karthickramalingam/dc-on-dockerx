@@ -7,7 +7,7 @@
       command: docker-compose down
     - pause: seconds=5
     - name: removing the network temp file
-      file: path="{{ network_done_file }}" state=absent
+      file: path="{{ docker_network_done_file }}" state=absent
     - name: removing all the files copied to the docker host
       file: path={{ item }} state=absent
       with_items:

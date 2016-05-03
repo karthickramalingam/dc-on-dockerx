@@ -7,7 +7,7 @@ your_public_key: id_rsa.pub
 docker_compose_file: docker-compose6.yaml
 
 # Docker network shell script for six switch topology.
-docker_network_file: docker-network6.sh
+docker_network_script: docker-network6.sh
 
 # Temporary file to indicate the docker network setting.
-network_done_file: /tmp/docker_network.done
+docker_network_done_file: /tmp/docker_network.done
