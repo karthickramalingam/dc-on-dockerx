@@ -24,30 +24,33 @@ env:
     ansible_ops: -vvv
     run_ops: ""
   matrix:
-    # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
-    - test_pathname: tests/test_version.yml
-      ansible_ops: ""
-    - test_pathname: tests/test_version.yml
-      distribution: centos
-      version: 7
-      init: /usr/lib/systemd/systemd
-      ansible_ops: ""
-      run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    - test_pathname: tests/test_hostname.yml
-      ansible_ops: ""
-    - test_pathname: tests/test_hostname.yml
-      distribution: centos
-      version: 7
-      init: /usr/lib/systemd/systemd
-      ansible_ops: ""
-      run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    # We only use the ubuntu as the control machine
-    # rest of the tests.
-    - test_pathname: tests/test_bridge.yml
-    - test_pathname: tests/test_switch.yml
-    # Those BGP related test cases are preliminary and will be moved
-    # up to the actual test cases once it's ready.
+    include:
+      # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
+      - test_pathname: tests/test_version.yml
+        ansible_ops: ""
+      - test_pathname: tests/test_version.yml
+        distribution: centos
+        version: 7
+        init: /usr/lib/systemd/systemd
+        ansible_ops: ""
+        run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      - test_pathname: tests/test_hostname.yml
+        ansible_ops: ""
+      - test_pathname: tests/test_hostname.yml
+        distribution: centos
+        version: 7
+        init: /usr/lib/systemd/systemd
+        ansible_ops: ""
+        run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      # We only use the ubuntu as the control machine
+      # rest of the tests.
+      - test_pathname: tests/test_bridge.yml
+      - test_pathname: tests/test_switch.yml
+
     allow_failures:
+      # Those tests are preliminary and the result shouldn't
+      # affect the overall test suite result.  We will include
+      # those above, once it's ready.
       - test_pathname: tests/test_bgp_router_id.yml
 
 services:
