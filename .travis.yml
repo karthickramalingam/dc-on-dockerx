@@ -21,25 +21,22 @@ env:
     distribution: ubuntu
     version: 14.04
     init: /sbin/init
-    ansible_ops: -vvv
+    dut: fab1
+    ansible_ops: -vvv --extra_vars 'ansible_host=${dut} ansible_port=22'
     run_ops: ""
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
     - test_pathname: tests/test_version.yml
-      ansible_ops: ""
     - test_pathname: tests/test_version.yml
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
-      ansible_ops: ""
       run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     - test_pathname: tests/test_hostname.yml
-      ansible_ops: ""
     - test_pathname: tests/test_hostname.yml
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
-      ansible_ops: ""
       run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     # We only use the ubuntu as the control machine
     # rest of the tests.
@@ -93,7 +90,7 @@ before_script:
   # Run ansible control machine, linked to OpenSwitch container
   - ansible_id=$(mktemp)
   - >
-    sudo docker run --net=${build_path}_default --detach --link fab1:sw1
+    sudo docker run --net=${build_path}_default --detach --link fab1:${dut}
     --volume=${PWD}:/etc/ansible:rw ${run_ops}
     ${distribution}-${version}:local ${init} > ${ansible_id}
 
