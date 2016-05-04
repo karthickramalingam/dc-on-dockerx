@@ -97,14 +97,14 @@ script:
   - >
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
-    ansible-playbook ${ansible_ops} /etc/ansible/${test_pathname}
+    ansible-playbook ${ansible_ops} ${test_pathname}
     --syntax-check
 
   # Run the test
   - >
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
-    ansible-playbook ${ansible_ops} /etc/ansible/${test_pathname}
+    ansible-playbook ${ansible_ops} ${test_pathname}
     -u ${switch_user}
 
 after_script:

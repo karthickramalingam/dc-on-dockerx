@@ -16,9 +16,6 @@ ADD id_rsa /root/.ssh/id_rsa
 RUN chmod 0700 /root/.ssh
 RUN chmod 0400 /root/.ssh/id_rsa
 
-# Prepare the ansible environment
-RUN mkdir /etc/ansible
-
 # Required package(s)
 RUN apt-get -y update && \
     apt-get install -y build-essential openssh-client git \
@@ -36,17 +33,20 @@ RUN easy_install pip
 #                paramiko PyYAML Jinja2 httplib2 six
 RUN pip install paramiko==1.16.0 PyYAML Jinja2 httplib2 six
 
-# Get the latest ansible
+# Prepare the ansible runtime
 RUN mkdir /opt/ansible
+WORKDIR /opt/ansible
 # Waiting ansible PR #1513
 # https://github.com/ansible/ansible/pull/1513
-#RUN git clone https://github.com/ansible/ansible.git \
-#        --recursive /opt/ansible/ansible
+#RUN git clone https://github.com/ansible/ansible.git --recursive
 RUN git clone https://github.com/keinohguchi/ansible.git \
-        --branch net_template_fix /opt/ansible/ansible
-RUN git clone https://github.com/ansible/ansible-modules-core.git \
-	/opt/ansible/ansible/lib/ansible/modules/core
-WORKDIR /opt/ansible/ansible
+        --branch net_template_fix
+WORKDIR /opt/ansible/ansible/lib/ansible/modules
+RUN git clone https://github.com/ansible/ansible-modules-core.git core
+
+# Ansible home
+RUN mkdir /etc/ansible
+WORKDIR /etc/ansible
 ENV PATH /opt/ansible/ansible/bin:/bin:/usr/bin:/sbin:/usr/sbin
 ENV PYTHONPATH /opt/ansible/ansible/lib
 ENV ANSIBLE_LIBRARY /opt/ansible/ansible/library
