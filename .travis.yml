@@ -93,7 +93,7 @@ before_script:
   # Run ansible control machine, linked to OpenSwitch container
   - ansible_id=$(mktemp)
   - >
-    sudo docker run --net=${build_path}_default --detach --link fab1:ops
+    sudo docker run --net=${build_path}_default --detach --link fab1:sw1
     --volume=${PWD}:/etc/ansible:rw ${run_ops}
     ${distribution}-${version}:local ${init} > ${ansible_id}
 
