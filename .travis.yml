@@ -45,10 +45,11 @@ env:
 services:
   - docker
 
-before_script:
+before_install:
   # list docker-engine versions
   - apt-cache madison docker-engine
 
+install:
   # upgrade docker-engine to specific version
   - >
     sudo apt-get -o Dpkg::Options::='--force-confnew'
@@ -63,32 +64,33 @@ before_script:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-  # Create docker instances by docker-compose
+before_script:
+  # Build OpenSwitch image by docker-compose
   - >
     sudo bash -c
     "cd ${build_path} && docker-compose --file=${compose_file} build"
 
-  # Ansible control machine container
+  # Run OpenSwitch instances through docker-compose
+  - >
+    sudo bash -c
+    "cd ${build_path} && docker-compose --file=${compose_file} up -d"
+
+  # Build ansible control machine container
   - sudo docker pull ${distribution}:${version}
   - >
     sudo docker build --rm=true
     --file=${build_path}/Dockerfile.${distribution}-${version}
     --tag=${distribution}-${version}:local ${build_path}
 
-script:
   - ansible_id=$(mktemp)
 
-  # Run OpenSwitch through docker-compose
-  - >
-    sudo bash -c
-    "cd ${build_path} && docker-compose --file=${compose_file} up -d"
-
-  # Run Ansible control machine container in detached state
+  # Run ansible control machine, linked to OpenSwitch container
   - >
     sudo docker run --net=${build_path}_default --detach --link fab1:ops
     --volume=${PWD}:/etc/ansible:rw ${run_ops}
     ${distribution}-${version}:local ${init} > ${ansible_id}
 
+script:
   # Ansible syntax check
   - >
     sudo docker exec --tty $(cat ${ansible_id})
