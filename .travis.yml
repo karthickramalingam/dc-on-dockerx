@@ -45,24 +45,7 @@ env:
     # rest of the tests.
     - test_pathname: tests/test_bridge.yml
     - test_pathname: tests/test_switch.yml
-    - test_pathname: tests/test_bgp_router_id.yml
-
-# Those tests are preliminary and the result won't affect the overall
-# test suite result.  We will remove those test cases once it's ready.
-matrix:
-  allow_failures:
-    - test_pathname: tests/test_bgp_router_id.yml
-      COMPOSE_VERSION: 1.6.0
-      DOCKER_VERSION: 1.10.1-0~trusty
-      network_script: docker-network1.sh
-      compose_file: docker-compose1.yaml
-      compose_url: https://github.com/docker/compose/releases/download/
-      build_path: utils
-      distribution: ubuntu
-      version: 14.04
-      init: /sbin/init
-      ansible_ops: -vvv
-      run_ops: ""
+    #- test_pathname: tests/test_bgp_router_id.yml
 
 services:
   - docker
