@@ -93,8 +93,8 @@ script:
   - sudo docker ps -a
 
   # Clenaup
-  - sudo bash -c "cd ${build_path} && docker-compose --file=${compose_file} down"
   - sudo docker stop "$(cat ${ansible_id})"
+  - sudo bash -c "cd ${build_path} && docker-compose --file=${compose_file} down"
   #- sudo docker stop "$(cat ${switch_id})"
 
 notifications:
