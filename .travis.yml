@@ -15,27 +15,30 @@ env:
     DOCKER_VERSION: 1.10.1-0~trusty
     compose_file: docker-compose1.yaml
     compose_url: https://github.com/docker/compose/releases/download/
-    switch_user: admin
-    ansible_ops: "-vvv"
     build_path: utils
     # Ubuntu/14.04 is the default ansible control machine distribution
     distribution: ubuntu
     version: 14.04
     init: /sbin/init
+    ansible_ops: -vvv
     run_ops: ""
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
     - test_pathname: tests/test_version.yml
+      ansible_ops: ""
     - test_pathname: tests/test_version.yml
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
+      ansible_ops: ""
       run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     - test_pathname: tests/test_hostname.yml
+      ansible_ops: ""
     - test_pathname: tests/test_hostname.yml
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
+      ansible_ops: ""
       run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     # We only use the ubuntu as the control machine
     # rest of the tests.
@@ -105,7 +108,6 @@ script:
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${ansible_ops} ${test_pathname}
-    -u ${switch_user}
 
 after_script:
   # Check if we're sharing the same docker host
