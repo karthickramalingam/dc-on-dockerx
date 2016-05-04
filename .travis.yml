@@ -25,22 +25,22 @@ env:
     run_ops: ""
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
-    - test_filename: tests/test_version.yml
-    - test_filename: tests/test_version.yml
+    - test_pathname: tests/test_version.yml
+    - test_pathname: tests/test_version.yml
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
       run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    - test_filename: tests/test_hostname.yml
-    - test_filename: tests/test_hostname.yml
+    - test_pathname: tests/test_hostname.yml
+    - test_pathname: tests/test_hostname.yml
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
       run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     # We only use the ubuntu as the control machine
     # rest of the tests.
-    - test_filename: tests/test_bridge.yml
-    - test_filename: tests/test_switch.yml
+    - test_pathname: tests/test_bridge.yml
+    - test_pathname: tests/test_switch.yml
 
 services:
   - docker
@@ -82,27 +82,29 @@ before_script:
     --file=${build_path}/Dockerfile.${distribution}-${version}
     --tag=${distribution}-${version}:local ${build_path}
 
-  - ansible_id=$(mktemp)
-
   # Run ansible control machine, linked to OpenSwitch container
+  - ansible_id=$(mktemp)
   - >
     sudo docker run --net=${build_path}_default --detach --link fab1:ops
     --volume=${PWD}:/etc/ansible:rw ${run_ops}
     ${distribution}-${version}:local ${init} > ${ansible_id}
+
+  # Print the current working directory on ansible control machine
+  - sudo docker exec --tty $(cat ${ansible_id}) env TERM=xterm pwd
 
 script:
   # Ansible syntax check
   - >
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
-    ansible-playbook ${ansible_ops} /etc/ansible/${test_filename}
+    ansible-playbook ${ansible_ops} /etc/ansible/${test_pathname}
     --syntax-check
 
   # Run the test
   - >
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
-    ansible-playbook ${ansible_ops} /etc/ansible/${test_filename}
+    ansible-playbook ${ansible_ops} /etc/ansible/${test_pathname}
     -u ${switch_user}
 
 after_script:
