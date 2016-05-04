@@ -45,6 +45,10 @@ env:
     # rest of the tests.
     - test_pathname: tests/test_bridge.yml
     - test_pathname: tests/test_switch.yml
+    # Those BGP related test cases are preliminary and will be moved
+    # up to the actual test cases once it's ready.
+    allow_failures:
+      - test_pathname: tests/test_bgp_router_id.yml
 
 services:
   - docker
