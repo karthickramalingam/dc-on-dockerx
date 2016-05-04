@@ -88,6 +88,7 @@ script:
   - 'sudo docker exec --tty "$(cat ${ansible_id})" env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg ansible-playbook "${ansible_ops}" -u "${switch_user}" /etc/ansible/tests/"${test_filename}"'
 
   # Check if we're sharing the same docker host
+  - sudo docker network ls
   - sudo docker images
   - sudo docker ps -a
 
