@@ -59,12 +59,27 @@ stuff, with additional tweaks for OpenSwitch interfaces:
 Now, you're ready for play, and of course, it's called `site.yaml`:
 
 ```
-  $ ansible-playbook site.yaml
+  $ ansible-playbook --skip-tags bgp site.yaml
 ```
+
+We need to skip the `bgp` related plays at this point as there is
+an issue on [OpenSwitch bgp role](https://github.com/keinohguchi/ops-bgp-role).
+
+### Specific play
+
+You can only run the specific host by using the `--limit` option
+as below:
+
+```
+  $ ansible-playbook --limit fabrics --skip-tags bgp site.yaml
+```
+
+for example, to run only the basic L2/L3 plays against the
+[fabric switches](hosts).
 
 ## Tear down
 
-Teardown the topology, once you have a fun:
+Teardown the topology, after the party.
 
 ```
   $ ansible-playbook utils/teardown.yaml
