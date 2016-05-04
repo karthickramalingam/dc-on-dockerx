@@ -21,8 +21,7 @@ env:
     distribution: ubuntu
     version: 14.04
     init: /sbin/init
-    dut: fab1
-    ansible_ops: -vvv --extra_vars 'ansible_host=${dut} ansible_port=22'
+    ansible_ops: -vvv --extra_vars 'ansible_host=fab1 ansible_port=22'
     run_ops: ""
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
@@ -90,7 +89,7 @@ before_script:
   # Run ansible control machine, linked to OpenSwitch container
   - ansible_id=$(mktemp)
   - >
-    sudo docker run --net=${build_path}_default --detach --link fab1:${dut}
+    sudo docker run --net=${build_path}_default --detach --link fab1:fab1
     --volume=${PWD}:/etc/ansible:rw ${run_ops}
     ${distribution}-${version}:local ${init} > ${ansible_id}
 
