@@ -45,7 +45,7 @@ env:
 services:
   - docker
 
-before_install:
+before_script:
   # list docker-engine versions
   - apt-cache madison docker-engine
 
