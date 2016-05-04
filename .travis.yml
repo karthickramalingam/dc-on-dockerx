@@ -21,7 +21,7 @@ env:
     distribution: ubuntu
     version: 14.04
     init: /sbin/init
-    ansible_ops: -vvv --extra_vars 'ansible_host=fab1 ansible_port=22'
+    ansible_ops: -vvv --extra-vars 'ansible_host=fab1 ansible_port=22'
     run_ops: ""
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
