@@ -11,7 +11,7 @@ dist: trusty
 # https://github.com/travis-ci/travis-ci/issues/1519
 env:
   global:
-    DOCKER_COMPOSE_VERSION: 1.6.0
+    COMPOSE_VERSION: 1.6.0
     DOCKER_VERSION: 1.10.1-0~trusty
     compose_file: docker-compose1.yaml
     compose_url: https://github.com/docker/compose/releases/download/
@@ -50,18 +50,23 @@ before_install:
   - apt-cache madison docker-engine
 
   # upgrade docker-engine to specific version
-  - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
+  - >
+    sudo apt-get -o Dpkg::Options::='--force-confnew'
+    install -y docker-engine=${DOCKER_VERSION}
 
   # reinstall docker-compose at specific version
   - sudo rm /usr/local/bin/docker-compose
-  - curl -L ${compose_url}/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - >
+    curl -L
+    ${compose_url}/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m`
+    > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
   # Create docker instances by docker-compose
   - >
     sudo bash -c
-    "cd ${build_path} && docker-compose --file=${compose_file} build"
+    'cd ${build_path} && docker-compose --file=${compose_file} build'
 
   # Ansible control machine container
   - sudo docker pull ${distribution}:${version}
@@ -76,27 +81,27 @@ script:
   # Run OpenSwitch through docker-compose
   - >
     sudo bash -c
-    "cd ${build_path} && docker-compose --file=${compose_file} up -d"
+    'cd ${build_path} && docker-compose --file=${compose_file} up -d'
 
   # Run Ansible control machine container in detached state
   - >
     sudo docker run --net=${build_path}_default --detach --link fab1:ops
-    --volume="${PWD}":/etc/ansible:rw ${run_ops}
-    ${distribution}-${version}:local ${init} > "${ansible_id}"
+    --volume=${PWD}:/etc/ansible:rw ${run_ops}
+    ${distribution}-${version}:local ${init} > ${ansible_id}
 
   # Ansible syntax check
   - >
-    sudo docker exec --tty "$(cat ${ansible_id})"
+    sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
-    ansible-playbook "${ansible_ops}" /etc/ansible/"${test_filename}"
+    ansible-playbook ${ansible_ops} /etc/ansible/"${test_filename}"
     --syntax-check
 
   # Run the test
   - >
-    sudo docker exec --tty "$(cat ${ansible_id})"
+    sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
-    ansible-playbook "${ansible_ops}" /etc/ansible/"${test_filename}"
-    -u "${switch_user}"
+    ansible-playbook ${ansible_ops} /etc/ansible/${test_filename}
+    -u ${switch_user}
 
 after_script:
   # Check if we're sharing the same docker host
@@ -105,10 +110,10 @@ after_script:
   - sudo docker ps -a
 
   # docker clenaup
-  - sudo docker stop "$(cat ${ansible_id})"
+  - sudo docker stop $(cat ${ansible_id})
   - >
     sudo bash -c
-    "cd ${build_path} && docker-compose --file=${compose_file} down"
+    'cd ${build_path} && docker-compose --file=${compose_file} down'
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
