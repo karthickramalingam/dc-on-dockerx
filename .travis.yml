@@ -21,8 +21,8 @@ env:
     distribution: ubuntu
     version: 14.04
     init: /sbin/init
-    ansible_ops: "-vvv --extra-vars 'ansible_host=fab1 ansible_port=22'"
-    run_ops: ""
+    ansible_ops: "-vvv"
+    docker_ops: ""
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
     - test_pathname: tests/test_version.yml
@@ -30,13 +30,13 @@ env:
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
-      run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      docker_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     - test_pathname: tests/test_hostname.yml
     - test_pathname: tests/test_hostname.yml
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
-      run_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      docker_ops: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     # We only use the ubuntu as the control machine
     # rest of the tests.
     - test_pathname: tests/test_bridge.yml
@@ -90,7 +90,7 @@ before_script:
   - ansible_id=$(mktemp)
   - >
     sudo docker run --net=${build_path}_default --detach --link fab1:fab1
-    --volume=${PWD}:/etc/ansible:rw ${run_ops}
+    --volume=${PWD}:/etc/ansible:rw ${docker_ops}
     ${distribution}-${version}:local ${init} > ${ansible_id}
 
   # Print the current working directory on ansible control machine
@@ -102,6 +102,7 @@ script:
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${ansible_ops} ${test_pathname}
+    --extra-vars 'ansible_host=fab1 ansible_port=22'
     --syntax-check
 
   # Run the test
@@ -109,6 +110,7 @@ script:
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${ansible_ops} ${test_pathname}
+    --extra-vars 'ansible_host=fab1 ansible_port=22'
 
 after_script:
   # Check if we're sharing the same docker host
