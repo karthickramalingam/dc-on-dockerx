@@ -1,7 +1,7 @@
 # DC on Docker with [OpenSwitch](http://www.openswitch.net)
 
 [![Build Status](https://travis-ci.org/keinohguchi/dc-on-docker.svg)](https://travis-ci.org/keinohguchi/dc-on-docker)
-[![Latest build duration](https://buildtimetrend-dev.herokuapp.com/badge/keinohguchi/dc-on-docker/latest)](https://buildtimetrend-dev.herokuapp.com/dashboard/keinohguchi/dc-on-docker/index.html)
+[![Buildtime trend](https://buildtimetrend.herokuapp.com/badge/keinohguchi/dc-on-docker/latest)](https://buildtimetrend.herokuapp.com/dashboard/keinohguchi/dc-on-docker/)
 [![Stories in Ready](https://badge.waffle.io/keinohguchi/dc-on-docker.png?label=ready&title=ready)](https://waffle.io/keinohguchi/dc-on-docker)
 
 Creating your own data-center (DC) on your laptop with Ansible and
