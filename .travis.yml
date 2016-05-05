@@ -44,6 +44,8 @@ env:
     - test_pathname: tests/test_bridge.yml
     - test_pathname: tests/test_switch.yml
     - test_pathname: site.yaml
+      network_script: docker-network3.sh
+      compose_file: docker-compose3.yaml
       ansible_ops_skip_tags: '--skip-tags=bgp'
       ansible_ops_limit: '--limit=fabrics'
       ansible_ops_debug: -vvv

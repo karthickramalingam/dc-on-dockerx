@@ -6,8 +6,8 @@
     provider: "{{ ops_provider }}"
     waitfor:
       - "result[0] contains 'hostname {{ ops_system_hostname }}'"
-    interval: 1
-    retries: 2
+    interval: 5
+    retries: 3
   register: result
   connection: local
 
