@@ -11,40 +11,46 @@ dist: trusty
 # https://github.com/travis-ci/travis-ci/issues/1519
 env:
   global:
-    - COMPOSE_VERSION=1.6.0
-    - DOCKER_VERSION=1.10.1-0~trusty
-    - network_script=docker-network1.sh
-    - compose_file=docker-compose1.yaml
-    - compose_url=https://github.com/docker/compose/releases/download/
-    - build_path=utils
+    COMPOSE_VERSION: 1.6.0
+    DOCKER_VERSION: 1.10.1-0~trusty
+    network_script: docker-network1.sh
+    compose_file: docker-compose1.yaml
+    compose_url: https://github.com/docker/compose/releases/download/
+    build_path: utils
     # Ubuntu/14.04 is the default ansible control machine distribution
-    - distribution=ubuntu
-    - version=14.04
-    - init=/sbin/init
-    - ansible_ops='-vvv'
-    - docker_ops=''
+    distribution: ubuntu
+    version: 14.04
+    init: /sbin/init
+    ansible_ops_debug: '-vvv'
+    ansible_ops_limit: ''
+    ansible_ops_skip_tags: ''
+    docker_ops_privileged: ''
+    docker_ops_volume1: ''
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
-    - test_pathname=tests/test_version.yml
-    - test_pathname=tests/test_version.yml
-      distribution=centos
-      version=7
-      init=/usr/lib/systemd/systemd
-      ansible_ops=''
-      docker_ops='--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    - test_pathname: tests/test_version.yml
+    - test_pathname: tests/test_version.yml
+      distribution: centos
+      version: 7
+      init: /usr/lib/systemd/systemd
+      ansible_ops_debug: ''
+      docker_ops_privileged: '--privileged'
+      docker_ops_volume1: '--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
     - test_pathname: tests/test_hostname.yml
     - test_pathname: tests/test_hostname.yml
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
-      ansible_ops=''
-      docker_ops='--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      ansible_ops_debug: ''
+      docker_ops_privileged: '--privileged'
+      docker_ops_volume1: '--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
     # We only use the ubuntu as the control machine
     # rest of the tests.
     - test_pathname: tests/test_bridge.yml
     - test_pathname: tests/test_switch.yml
     - test_pathname: site.yaml
-      ansible_ops='-vvv --limit fabrics --skip-tags bgp'
+      ansible_ops_limit: '--limit=fabrics'
+      ansible_ops_skip_tags: '--skip-tags=bgp'
 
 services:
   - docker
@@ -93,7 +99,8 @@ before_script:
   - ansible_id=$(mktemp)
   - >
     sudo docker run --net=${build_path}_default --detach
-    --link fab1:fab1 --volume=${PWD}:/etc/ansible:rw ${docker_ops}
+    --link fab1:fab1 --volume=${PWD}:/etc/ansible:rw
+    ${docker_ops_privileged} ${docker_ops_volume1}
     ${distribution}-${version}:local ${init} > ${ansible_id}
 
   # Print the current working directory on ansible control machine
@@ -104,7 +111,8 @@ script:
   - >
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
-    ansible-playbook ${ansible_ops} ${test_pathname}
+    ansible-playbook ${test_pathname}
+    ${ansible_ops_debug} ${ansible_ops_limit} ${ansible_ops_skip_tags}
     --extra-vars 'ansible_host=fab1 ansible_port=22'
     --syntax-check
 
@@ -112,7 +120,8 @@ script:
   - >
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
-    ansible-playbook ${ansible_ops} ${test_pathname}
+    ansible-playbook ${test_pathname}
+    ${ansible_ops_debug} ${ansible_ops_limit} ${ansible_ops_skip_tags}
     --extra-vars 'ansible_host=fab1 ansible_port=22'
 
 after_script:
