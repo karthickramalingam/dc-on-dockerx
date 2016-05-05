@@ -21,6 +21,8 @@ env:
     distribution: ubuntu
     version: 14.04
     init: /sbin/init
+    ansible_ops_host: 'ansible_host=fab1'
+    ansible_ops_port: 'ansible_port=22'
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
     - test_pathname: tests/test_version.yml
@@ -109,7 +111,7 @@ script:
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${test_pathname}
     ${ansible_ops_debug} ${ansible_ops_limit} ${ansible_ops_skip_tags}
-    --extra-vars 'ansible_host=fab1 ansible_port=22'
+    --extra-vars '${ansible_ops_host} ${ansible_ops_port}'
     --syntax-check
 
   # Run the test
@@ -118,7 +120,7 @@ script:
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${test_pathname}
     ${ansible_ops_debug} ${ansible_ops_limit} ${ansible_ops_skip_tags}
-    --extra-vars 'ansible_host=fab1 ansible_port=22'
+    --extra-vars '${ansible_ops_host} ${ansible_ops_port}'
 
 after_script:
   # Check if we're sharing the same docker host
