@@ -135,4 +135,7 @@ after_script:
     "cd ${build_path} && docker-compose --file=${compose_file} down"
 
 notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  webhooks:
+    - https://galaxy.ansible.com/api/v1/notifications/
+    # trigger Buildtime Trend Service to parse Travis CI log
+    - https://buildtimetrend.herokuapp.com/travis
