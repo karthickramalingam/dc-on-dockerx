@@ -112,7 +112,7 @@ script:
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${test_pathname}
     ${ansible_ops_debug} ${ansible_ops_limit} ${ansible_ops_skip_tags}
-    --extra-vars '${ansible_ops_host} ${ansible_ops_port}'
+    --extra-vars "${ansible_ops_host} ${ansible_ops_port}"
     --syntax-check
 
   # Run the test
@@ -121,7 +121,7 @@ script:
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${test_pathname}
     ${ansible_ops_debug} ${ansible_ops_limit} ${ansible_ops_skip_tags}
-    --extra-vars '${ansible_ops_host} ${ansible_ops_port}'
+    --extra-vars "${ansible_ops_host} ${ansible_ops_port}"
 
 after_script:
   # Check if we're sharing the same docker host
