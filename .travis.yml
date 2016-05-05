@@ -21,11 +21,6 @@ env:
     distribution: ubuntu
     version: 14.04
     init: /sbin/init
-    ansible_ops_debug: '-vvv'
-    ansible_ops_limit: ''
-    ansible_ops_skip_tags: ''
-    docker_ops_privileged: ''
-    docker_ops_volume1: ''
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
     - test_pathname: tests/test_version.yml
@@ -33,7 +28,6 @@ env:
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
-      ansible_ops_debug: ''
       docker_ops_privileged: '--privileged'
       docker_ops_volume1: '--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
     - test_pathname: tests/test_hostname.yml
@@ -41,14 +35,16 @@ env:
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
-      ansible_ops_debug: ''
       docker_ops_privileged: '--privileged'
       docker_ops_volume1: '--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
     # We only use the ubuntu as the control machine
     # rest of the tests.
     - test_pathname: tests/test_bridge.yml
+      ansible_ops_debug: '-vvv'
     - test_pathname: tests/test_switch.yml
+      ansible_ops_debug: '-vvv'
     - test_pathname: site.yaml
+      ansible_ops_debug: '-vvv'
       ansible_ops_limit: '--limit=fabrics'
       ansible_ops_skip_tags: '--skip-tags=bgp'
 
