@@ -25,11 +25,11 @@ env:
     - docker_ops=''
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
-    - test_pathname: tests/test_version.yml
-    - test_pathname: tests/test_version.yml
-      distribution: centos
-      version: 7
-      init: /usr/lib/systemd/systemd
+    - test_pathname=tests/test_version.yml
+    - test_pathname=tests/test_version.yml
+      distribution=centos
+      version=7
+      init=/usr/lib/systemd/systemd
       ansible_ops=''
       docker_ops='--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
     - test_pathname: tests/test_hostname.yml
