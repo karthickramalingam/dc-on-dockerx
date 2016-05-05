@@ -21,8 +21,8 @@ env:
     distribution: ubuntu
     version: 14.04
     init: /sbin/init
-    ansible_ops: '-vvv'
-    docker_ops: ''
+    ansible_ops='-vvv'
+    docker_ops=''
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
     - test_pathname: tests/test_version.yml
@@ -30,21 +30,21 @@ env:
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
-      ansible_ops: ''
-      docker_ops: '--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      ansible_ops=''
+      docker_ops='--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
     - test_pathname: tests/test_hostname.yml
     - test_pathname: tests/test_hostname.yml
       distribution: centos
       version: 7
       init: /usr/lib/systemd/systemd
-      ansible_ops: ''
-      docker_ops: '--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      ansible_ops=''
+      docker_ops='--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
     # We only use the ubuntu as the control machine
     # rest of the tests.
     - test_pathname: tests/test_bridge.yml
     - test_pathname: tests/test_switch.yml
     - test_pathname: site.yaml
-      ansible_ops: '-vvv --limit fabrics --skip-tags bgp'
+      ansible_ops='-vvv --limit fabrics --skip-tags bgp'
 
 services:
   - docker
