@@ -11,16 +11,16 @@ dist: trusty
 # https://github.com/travis-ci/travis-ci/issues/1519
 env:
   global:
-    COMPOSE_VERSION: 1.6.0
-    DOCKER_VERSION: 1.10.1-0~trusty
-    network_script: docker-network1.sh
-    compose_file: docker-compose1.yaml
-    compose_url: https://github.com/docker/compose/releases/download/
-    build_path: utils
+    - COMPOSE_VERSION=1.6.0
+    - DOCKER_VERSION=1.10.1-0~trusty
+    - network_script=docker-network1.sh
+    - compose_file=docker-compose1.yaml
+    - compose_url=https://github.com/docker/compose/releases/download/
+    - build_path=utils
     # Ubuntu/14.04 is the default ansible control machine distribution
-    distribution: ubuntu
-    version: 14.04
-    init: /sbin/init
+    - distribution=ubuntu
+    - version=14.04
+    - init=/sbin/init
     - ansible_ops='-vvv'
     - docker_ops=''
   matrix:
