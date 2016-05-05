@@ -21,7 +21,6 @@ env:
     distribution: ubuntu
     version: 14.04
     init: /sbin/init
-    dut_host: fab1
     ansible_ops: "-vvv"
     docker_ops: ""
   matrix:
@@ -94,7 +93,7 @@ before_script:
   - ansible_id=$(mktemp)
   - >
     sudo docker run --net=${build_path}_default --detach
-    --link fab1:${dut_host} --volume=${PWD}:/etc/ansible:rw ${docker_ops}
+    --link fab1:fab1 --volume=${PWD}:/etc/ansible:rw ${docker_ops}
     ${distribution}-${version}:local ${init} > ${ansible_id}
 
   # Print the current working directory on ansible control machine
@@ -106,7 +105,7 @@ script:
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${ansible_ops} ${test_pathname}
-    --extra-vars 'ansible_host=${dut_host} ansible_port=22'
+    --extra-vars 'ansible_host=fab1 ansible_port=22'
     --syntax-check
 
   # Run the test
@@ -114,7 +113,7 @@ script:
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${ansible_ops} ${test_pathname}
-    --extra-vars 'ansible_host=${dut_host} ansible_port=22'
+    --extra-vars 'ansible_host=fab1 ansible_port=22'
 
 after_script:
   # Check if we're sharing the same docker host
