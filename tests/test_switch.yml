@@ -4,8 +4,9 @@
   gather_facts: yes
   vars:
     ansible_user: admin
+    ops_system_hostname: SimpleSwitch
     ops_debug: yes
-    cli:
+    ops_provider:
       username: netop
       password: netop
       host: "{{ ansible_host }}"
@@ -13,7 +14,6 @@
 
   roles:
     - role: switch
-      ops_system_hostname: SimpleSwitch
       ops_intf_admin_state: up
       ops_vrfs:
         - name: vrf_default
@@ -50,7 +50,36 @@
         - name: 10
 
   tasks:
-    - name: Check if ports are correctly configured as L2 or L3 ports
+    - name: show version CLI
+      ops_command:
+        commands:
+          - show version
+        provider: "{{ ops_provider }}"
+        interval: 1
+        retries: 2
+      register: show_version_result
+      connection: local
+
+    - name: show version result
+      debug: var=show_version_result
+      when: ops_debug
+
+    - name: show running-config CLI
+      ops_command:
+        commands:
+          - show running-config
+        provider: "{{ ops_provider }}"
+        interval: 5
+        retries: 3
+      register: show_running_config_result
+      connection: local
+
+    - name: show running-config result
+      debug: var=show_running_config_result
+      when: ops_debug
+
+  post_tasks:
+    - name: Check if ports are correctly configured as L2 and L3 ports
       ops_command:
         commands:
           - show hostname
@@ -59,7 +88,7 @@
           - show interface 9 brief
           - show interface 10 brief
           - show ip route
-        provider: "{{ cli }}"
+        provider: "{{ ops_provider }}"
         waitfor:
           - "result[0] contains 'SimpleSwitch'"
           - "result[1] contains 'routed'"
@@ -71,10 +100,10 @@
           - "result[5] contains '172.16.3.0/24'"
           - "result[5] contains '172.16.4.0/24'"
           - "result[5] contains '172.16.5.0/24'"
-        interval: 1
-        retries: 2
-      register: result
+        interval: 5
+        retries: 3
+      register: test_result
       connection: local
-    - name: debug the result
-      debug: var=result
+    - name: show the test result
+      debug: var=test_result
       when: ops_debug
