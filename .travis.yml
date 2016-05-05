@@ -17,12 +17,12 @@ env:
     compose_file: docker-compose1.yaml
     compose_url: https://github.com/docker/compose/releases/download/
     build_path: utils
+    dut_host: fab1
+    dut_port: 22
     # Ubuntu/14.04 is the default ansible control machine distribution
     distribution: ubuntu
     version: 14.04
     init: /sbin/init
-    dut_host: fab1
-    dut_port: 22
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
     - test_pathname: tests/test_version.yml
@@ -44,9 +44,9 @@ env:
     - test_pathname: tests/test_bridge.yml
     - test_pathname: tests/test_switch.yml
     - test_pathname: site.yaml
-      ansible_ops_debug: '-vvv'
-      ansible_ops_limit: '--limit=fabrics'
       ansible_ops_skip_tags: '--skip-tags=bgp'
+      ansible_ops_limit: '--limit=fabrics'
+      ansible_ops_debug: -vvv
 
 services:
   - docker
