@@ -54,7 +54,7 @@ stuff, with additional tweaks for OpenSwitch interfaces:
   $ ansible-playbook utils/setup.yaml
 ```
 
-### Check the switch health
+### Switch health
 
 You can check the switch reachability by running the `utils/ping.yaml`
 playbook, as below:
@@ -85,6 +85,15 @@ as below:
 
 for example, to run only the basic L2/L3 plays against the
 [fabric switches](hosts).
+
+### Test
+
+You can run the test locally as simple as one liner.  We embrace the
+TDD philosophy here, too.
+
+```
+  $ ansible-playbook tests/test_bridge.yml
+```
 
 ## Tear down
 
