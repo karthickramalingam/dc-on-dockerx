@@ -64,6 +64,20 @@
       debug: var=show_version_result
       when: ops_debug
 
+    - name: show ip route CLI
+      ops_command:
+        commands:
+          - show ip route
+        provider: "{{ ops_provider }}"
+        interval: 3
+        retries: 3
+      register: show_ip_route_result
+      connection: local
+
+    - name: show ip route result
+      debug: var=show_ip_route_result
+      when: ops_debug
+
     - name: show running-config CLI
       ops_command:
         commands:
