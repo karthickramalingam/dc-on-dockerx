@@ -54,6 +54,15 @@ stuff, with additional tweaks for OpenSwitch interfaces:
   $ ansible-playbook utils/setup.yaml
 ```
 
+### Check the switch health
+
+You can check the switch reachability by running the `utils/ping.yaml`
+playbook, as below:
+
+```
+  $ ansible-playbook utils/ping.yaml
+```
+
 ## Play
 
 Now, you're ready for play, and of course, it's called `site.yaml`:
