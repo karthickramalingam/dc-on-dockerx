@@ -22,8 +22,7 @@ env:
     version: 14.04
     init: /sbin/init
     dut_host: fab1
-    ansible_ops_host: 'ansible_host=fab1'
-    ansible_ops_port: 'ansible_port=22'
+    dut_port: 22
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
     - test_pathname: tests/test_version.yml
@@ -43,9 +42,7 @@ env:
     # We only use the ubuntu as the control machine
     # rest of the tests.
     - test_pathname: tests/test_bridge.yml
-      ansible_ops_debug: '-vvv'
     - test_pathname: tests/test_switch.yml
-      ansible_ops_debug: '-vvv'
     - test_pathname: site.yaml
       ansible_ops_debug: '-vvv'
       ansible_ops_limit: '--limit=fabrics'
@@ -112,7 +109,7 @@ script:
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${test_pathname}
     ${ansible_ops_debug} ${ansible_ops_limit} ${ansible_ops_skip_tags}
-    --extra-vars "${ansible_ops_host} ${ansible_ops_port}"
+    --extra-vars "ansible_host=${dut_host} ansible_port=${dut_port}"
     --syntax-check
 
   # Run the test
@@ -121,7 +118,7 @@ script:
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${test_pathname}
     ${ansible_ops_debug} ${ansible_ops_limit} ${ansible_ops_skip_tags}
-    --extra-vars "${ansible_ops_host} ${ansible_ops_port}"
+    --extra-vars "ansible_host=${dut_host} ansible_port=${dut_port}"
 
 after_script:
   # Check if we're sharing the same docker host
