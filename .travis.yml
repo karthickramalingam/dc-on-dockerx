@@ -22,7 +22,6 @@ env:
     version: 14.04
     init: /sbin/init
     dut_host: fab1
-    dut_port: 22
     ansible_ops: "-vvv"
     docker_ops: ""
   matrix:
@@ -107,7 +106,7 @@ script:
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${ansible_ops} ${test_pathname}
-    --extra-vars 'ansible_host=${dut_host} ansible_port=${dut_port}'
+    --extra-vars 'ansible_host=${dut_host} ansible_port=22'
     --syntax-check
 
   # Run the test
@@ -115,7 +114,7 @@ script:
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
     ansible-playbook ${ansible_ops} ${test_pathname}
-    --extra-vars 'ansible_host=${dut_host} ansible_port=${dut_port}'
+    --extra-vars 'ansible_host=${dut_host} ansible_port=22'
 
 after_script:
   # Check if we're sharing the same docker host
