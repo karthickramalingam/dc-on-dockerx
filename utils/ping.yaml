@@ -1,0 +1,9 @@
+---
+- name: check the SSH reachability
+  hosts: switches
+  gather_facts: yes
+  vars:
+    ansible_user: admin
+  tasks:
+    - name: check the reachability
+      ping:

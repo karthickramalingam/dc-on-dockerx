@@ -27,14 +27,14 @@
     - name: wait for docker to come up
       pause: seconds=60
 
+- include: ping.yaml
+
 - name: setup docker containers
   hosts: switches
   gather_facts: no
   vars:
     ansible_user: admin
   tasks:
-    - name: check the reachability
-      ping:
     - name: move dplane interface to the net namespace by utils/ops-if-netns.sh
       become: yes
       vars:
