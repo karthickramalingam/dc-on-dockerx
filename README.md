@@ -96,6 +96,8 @@ TDD philosophy here, too.
   $ ansible-playbook tests/test_bridge.yml
 ```
 
+Here is the [asciicast](https://asciinema.org/a/44717), as test in action.
+
 ## Tear down
 
 Teardown the topology, after the party.
