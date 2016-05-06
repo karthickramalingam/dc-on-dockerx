@@ -47,6 +47,48 @@ Ansible 2.1 and above, because OpenSwitch ansible roles, e.g. [ops switch role](
 
 ## Setup
 
+### Using Vagrant
+
+* If you're under a proxy:
+
+Make sure you have `http_proxy` and `https_proxy` available as environment variables if you are under a web proxy;
+
+* On Windows
+
+```
+set http_proxy=%WEB_PROXY_URL%
+set https_proxy=%WEB_PROXY_URL%
+```
+
+* On Linux or OSX
+
+```
+export http_proxy=$WEB_PROXY_URL
+export https_proxy=$WEB_PROXY_URL
+```
+
+1. Download and install Virtualbox 5.0.16 from [virtualbox.org](https://www.virtualbox.org/wiki/Downloads);
+2. Download and install Vagrant 1.8.1 from [vagrantup.com](https://releases.hashicorp.com/vagrant/1.8.1);
+3. Install the required Vagrant plugins:
+
+```
+$ vagrant plugin install vagrant-proxyconf vagrant-vbguest
+```
+
+5. Create the virtual machine:
+
+```
+$ vagrant up
+```
+
+6. Accessing the virtual machine:
+
+```
+$ vagrant ssh
+```
+
+### Setup Topology
+
 Single playbook to setup the above topology.  It's basically
 It's primarily the `docker-compose` with the new `docker networking`
 stuff, with additional tweaks for OpenSwitch interfaces:
