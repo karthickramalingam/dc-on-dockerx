@@ -10,6 +10,18 @@ Vagrant.configure(2) do |config|
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
 
+  # Disable automatic virtualbox guest updates due to unnecessary guest reboots during vm boot
+  # (https://github.com/dotless-de/vagrant-vbguest/issues/111)
+  if Vagrant.has_plugin?("vagrant-vbguest")
+      config.vbguest.auto_update = false
+  end
+
+  if Vagrant.has_plugin?("vagrant-proxyconf")
+    config.proxy.http = ENV['http_proxy']
+    config.proxy.https = ENV['https_proxy']
+    config.proxy.no_proxy = "localhost,127.0.0.1"
+  end
+
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "trusty-server"
