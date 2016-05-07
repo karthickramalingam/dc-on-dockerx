@@ -23,14 +23,41 @@
       command: docker-compose up -d
     - name: setup network by utils/docker-network.sh
       script: >
-        "{{ docker_network_script }}" >> "{{ docker_network_done_file }}" creates="{{ docker_network_done_file }}"
+        "{{ docker_network_script }}" >>
+        "{{ docker_network_done_file }}" creates="{{ docker_network_done_file }}"
     - name: wait for docker to come up
       pause: seconds=60
 
 - include: ping.yaml
 
 - name: setup docker containers
-  hosts: switches
+  hosts: fabrics
+  gather_facts: no
+  vars:
+    ansible_user: admin
+  tasks:
+    - name: move dplane interface to the net namespace by utils/ops-if-netns.sh
+      become: yes
+      vars:
+        done: /tmp/ops_if_netns.done
+      command: >
+        /home/admin/bin/ops-if-netns.sh > "{{ done }}" creates="{{ done }}"
+
+- name: setup docker containers
+  hosts: spines
+  gather_facts: no
+  vars:
+    ansible_user: admin
+  tasks:
+    - name: move dplane interface to the net namespace by utils/ops-if-netns.sh
+      become: yes
+      vars:
+        done: /tmp/ops_if_netns.done
+      command: >
+        /home/admin/bin/ops-if-netns.sh > "{{ done }}" creates="{{ done }}"
+
+- name: setup docker containers
+  hosts: leaves
   gather_facts: no
   vars:
     ansible_user: admin
