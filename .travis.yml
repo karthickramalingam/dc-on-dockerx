@@ -43,6 +43,9 @@ env:
     # rest of the tests.
     - test_pathname: tests/test_bridge.yml
     - test_pathname: tests/test_switch.yml
+    - test_pathname: tests/test_bgp_router_id.yml
+    - test_pathname: tests/test_bgp_network.yml
+    - test_pathname: tests/test_bgp_neighboryml
     - test_pathname: site.yaml
       network_script: docker-network3.sh
       compose_file: docker-compose3.yaml
