@@ -17,41 +17,17 @@ on your laptop with [vagrant](http://vagrantup.com),
 
 Ansible 2.1 and above, because OpenSwitch ansible roles, e.g. [ops switch role](http://github.com/keinohguchi/ops-switch-role), depends on Ansible 2.1 modules.
 
-## Topology
-
-```
-                           
-                           |1
-                        +--+---+
-                        | fab1 |
-                        ++---+-+
-                         |2  |3
-                    +----+   +----+
-                    |1            |1
-                +---+----+   +----+---+
-                | spine1 |   | spine2 |
-                ++--+--+-+   +-+--+--++
-                 |2 |3 |4      |2 |3 |4 
-          +------+  |  |       |  |  +------+
-          |         |  +-------|--|-----+   |
-          |   +-----|----------+  |     |   |
-          |   |     |             |     |   |
-          |   |     +----+   +----+     |   |
-          |1  |2         |1  |2         |1  |2
-        +-+---+-+      +-+---+-+      +-+---+-+
-        | leaf1 |      | leaf2 |      | leaf3 |
-        +---+---+      +---+---+      +---+---+
-            |3             |3             |3
-
-```
-
-## Setup
-
 ### Using Vagrant
 
-* If you're under a proxy:
+You can use [vagrant](http://vagrantup.com) to create a sandboxed Ansible
+control machine, if you want to test it out, though this is actually not
+a requirement.  But if you do, here is some tips to set the vagrant
+environment up.
 
-Make sure you have `http_proxy` and `https_proxy` available as environment variables if you are under a web proxy;
+#### Proxy setup
+
+If you're behind a proxy, make sure you have `http_proxy` and `https_proxy`
+available as environment variables if you are under a web proxy;
 
 * On Windows
 
@@ -67,25 +43,63 @@ export http_proxy=$WEB_PROXY_URL
 export https_proxy=$WEB_PROXY_URL
 ```
 
-1. Download and install Virtualbox 5.0.16 from [virtualbox.org](https://www.virtualbox.org/wiki/Downloads);
-2. Download and install Vagrant 1.8.1 from [vagrantup.com](https://releases.hashicorp.com/vagrant/1.8.1);
-3. Install the required Vagrant plugins:
+#### Virtualbox
+
+Download and install Virtualbox 5.0.16 from [virtualbox.org](https://www.virtualbox.org/wiki/Downloads);
+
+#### Vagrant
+
+Download and install Vagrant 1.8.1 from [vagrantup.com](https://releases.hashicorp.com/vagrant/1.8.1);
+
+Optionary, you can install required vagrant plugins:
 
 ```
 $ vagrant plugin install vagrant-proxyconf vagrant-vbguest
 ```
 
-5. Create the virtual machine:
+#### Useful commands
+
+Create the virtual machine:
 
 ```
 $ vagrant up
 ```
 
-6. Accessing the virtual machine:
+Accessing the virtual machine:
 
 ```
 $ vagrant ssh
 ```
+
+## Topology
+
+```
+
+                           |1
+                        +--+---+
+                        | fab1 |
+                        ++---+-+
+                         |2  |3
+                    +----+   +----+
+                    |1            |1
+                +---+----+   +----+---+
+                | spine1 |   | spine2 |
+                ++--+--+-+   +-+--+--++
+                 |2 |3 |4      |2 |3 |4
+          +------+  |  |       |  |  +------+
+          |         |  +-------|--|-----+   |
+          |   +-----|----------+  |     |   |
+          |   |     |             |     |   |
+          |   |     +----+   +----+     |   |
+          |1  |2         |1  |2         |1  |2
+        +-+---+-+      +-+---+-+      +-+---+-+
+        | leaf1 |      | leaf2 |      | leaf3 |
+        +---+---+      +---+---+      +---+---+
+            |3             |3             |3
+
+```
+
+## Setup
 
 ### Setup Topology
 
