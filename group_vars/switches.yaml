@@ -16,6 +16,14 @@ ops_provider:
 # Just use the inventory name as the host name.
 ops_system_hostname: "{{ inventory_hostname }}"
 
+# Every switch shares ops_bridge configuration for now.
+ops_bridges:
+  - name: bridge_normal
+    ports: [4, 5, 6, 7, 8]
+    vlans:
+      - name: VLAN10
+        id: 10
+
 # Only eight ports will be used in this environment.
 ops_interfaces:
   - name: 1

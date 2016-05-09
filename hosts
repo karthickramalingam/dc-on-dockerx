@@ -1,5 +1,5 @@
 [all:vars]
-ansible_host=localhost
+ansible_host=u0
 
 [all]
 docker
@@ -9,6 +9,7 @@ spine2 ansible_port=12022
 leaf1  ansible_port=13022
 leaf2  ansible_port=14022
 leaf3  ansible_port=15022
+leaf4  ansible_port=16022
 
 [switches:children]
 fabrics
@@ -22,7 +23,7 @@ fab1
 spine[1:2]
 
 [leaves]
-leaf[1:3]
+leaf[1:4]
 
 # Group for the tests/*.yaml playbooks used by both travis CI.
 # You can use the local fab1 switch to run the test as:

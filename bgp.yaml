@@ -74,13 +74,16 @@
           - "result[0] contains '172.16.2.0/24'"
           - "result[0] contains '172.16.11.0/24'"
           - "result[0] contains '172.16.12.0/24'"
-          - "result[0] contains '172.16.13.0/24'"
           - "result[0] contains '172.16.21.0/24'"
           - "result[0] contains '172.16.22.0/24'"
-          - "result[0] contains '172.16.23.0/24'"
           - "result[0] contains '172.16.30.0/24'"
+          - "result[0] contains '172.16.31.0/24'"
           - "result[0] contains '172.16.40.0/24'"
+          - "result[0] contains '172.16.41.0/24'"
           - "result[0] contains '172.16.50.0/24'"
+          - "result[0] contains '172.16.51.0/24'"
+          - "result[0] contains '172.16.60.0/24'"
+          - "result[0] contains '172.16.61.0/24'"
         interval: 3
         retries: 3
       register: result
