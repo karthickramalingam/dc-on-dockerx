@@ -97,6 +97,23 @@ stuff, with additional tweaks for OpenSwitch interfaces:
   $ ansible-playbook utils/setup.yaml
 ```
 
+#### Smaller set of topology
+
+You can also create a smaller topology, say single docker topology,
+primaliry for the testing purpose, as demonstrated on the
+[asciinema](https://asciinema.org/a/44984).  Here is the example
+how to create a single docker instance topology:
+
+```
+  $ ansible-playbook --limit fabrics:docker --extra-vars "docker_compose_file=docker-compose1.yaml docker_network_script=docker-network1.sh" utils/setup.yaml
+```
+
+After this, you can run the test file, say `tests/test_switch.yml`, as below:
+
+```
+  $ ansible-playbook tests/test_switch.yml
+```
+
 ### Switch health
 
 You can check the switch reachability by running the `utils/ping.yaml`
