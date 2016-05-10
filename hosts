@@ -1,5 +1,5 @@
 [all:vars]
-ansible_host=u0
+ansible_host=localhost
 
 [all]
 docker
