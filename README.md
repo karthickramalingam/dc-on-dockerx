@@ -7,12 +7,6 @@
 Creating your own data-center (DC) on your laptop with Ansible and
 Docker-Compose in a snap!
 
-Here is [dc-on-docker in action](https://asciinema.org/a/44142),
-which is the step-by-step screen cast how to create
-[dc-on-docker](https://github.com/keinohguchi/dc-on-docker)
-on your laptop with [vagrant](http://vagrantup.com),
-[docker](http://docker.com), and [OpenSwitch](http://openswitch.net).
-
 ## Requirements
 
 Ansible 2.1 and above, because OpenSwitch ansible roles, e.g. [ops switch role](http://github.com/keinohguchi/ops-switch-role), depends on Ansible 2.1 modules.
@@ -97,7 +91,7 @@ $ vagrant ssh
 
 ## Setup
 
-### Setup Topology
+### Topology setup
 
 Single playbook to setup the above topology.  It's basically
 It's primarily the `docker-compose` with the new `docker networking`
@@ -107,7 +101,7 @@ stuff, with additional tweaks for OpenSwitch interfaces:
   $ ansible-playbook utils/setup.yaml
 ```
 
-#### Smaller set of topology
+#### Single docker topology
 
 You can also create a smaller topology, say single docker topology,
 primaliry for the testing purpose, as demonstrated on the
@@ -138,11 +132,8 @@ playbook, as below:
 Now, you're ready for play, and of course, it's called `site.yaml`:
 
 ```
-  $ ansible-playbook --skip-tags bgp site.yaml
+  $ ansible-playbook site.yaml
 ```
-
-We need to skip the `bgp` related plays at this point as there is
-an issue on [OpenSwitch bgp role](https://github.com/keinohguchi/ops-bgp-role).
 
 ### Specific play
 
@@ -150,11 +141,10 @@ You can only run the specific host by using the `--limit` option
 as below:
 
 ```
-  $ ansible-playbook --limit fabrics --skip-tags bgp site.yaml
+  $ ansible-playbook --limit fabrics site.yaml
 ```
 
-for example, to run only the basic L2/L3 plays against the
-[fabric switches](hosts).
+for example, to run only against the [fabric switches](hosts).
 
 ### Test
 
@@ -177,7 +167,8 @@ Teardown the topology, after the party.
 
 ## Screenshot
 
-Here is the [screenshot](https://gist.github.com/keinohguchi/fa22e11f65489ac6ad94707960a26c26)
-of the `ansible-playbook site.yaml` for your reference.
+Here is dc-on-docker in action [screencast](https://asciinema.org/a/44142) on [asciicast](https://asciinema.org), that shows you how to create VirtualBox based
+Ansible control machine from scratch and actual
+[dc-on-docker](https://github.com/keinohguchi/dc-on-docker) in action.
 
 Enjoy and happy hacking!
