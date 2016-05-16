@@ -120,16 +120,22 @@
           - "result[0] contains '{{ ops_system_hostname }}'"
           - "result[1] contains DEFAULT_VLAN_1"
           - "result[1] contains up"
+          - "result[1] contains ok"
           - "result[2] contains VLAN2"
           - "result[2] contains down"
+          - "result[2] contains admin_down"
           - "result[3] contains VLAN10"
           - "result[3] contains up"
+          - "result[3] contains ok"
           - "result[4] contains VLAN101"
           - "result[4] contains up"
+          - "result[4] contains ok"
           - "result[5] contains VLAN1002"
           - "result[5] contains down"
+          - "result[5] contains admin_down"
           - "result[6] contains VLAN4094"
           - "result[6] contains up"
+          - "result[6] contains ok"
         interval: 5
         retries: 3
       register: test_result
