@@ -1,5 +1,5 @@
 ---
-- name: simple bridge with eight ports, all L2
+- name: simple VLAN switch
   hosts: switches@travis
   gather_facts: yes
   vars:
@@ -25,25 +25,16 @@
             - name: VLAN2
               id: 2
             - name: VLAN10
+              admin: up
               id: 10
-              admin: up
             - name: VLAN101
-              id: 101
               admin: up
+              id: 101
             - name: VLAN1002
               id: 1002
             - name: VLAN4094
-              id: 4094
               admin: up
-      ops_interfaces:
-        - name: 1
-        - name: 2
-        - name: 3
-        - name: 4
-        - name: 5
-        - name: 6
-        - name: 7
-        - name: 8
+              id: 4094
       ops_ports:
         - name: 1
         - name: 2
@@ -60,6 +51,15 @@
           tag: 4094
         - name: 8
           tag: 4094
+      ops_interfaces:
+        - name: 1
+        - name: 2
+        - name: 3
+        - name: 4
+        - name: 5
+        - name: 6
+        - name: 7
+        - name: 8
 
   tasks:
     - name: show version CLI
