@@ -25,9 +25,9 @@ spine[1:2]
 [leaves]
 leaf[1:4]
 
-# Group for the tests/*.yaml playbooks used by both travis CI.
+# Group for the tests/*.yml playbooks used by both travis CI.
 # You can use the local fab1 switch to run the test as:
 #
 # $ ansible-playbook tests/test_bridge.yml
-[switches@travis]
-fab1
+[switches@travis:children]
+fabrics
