@@ -36,10 +36,10 @@ RUN pip install paramiko==1.16.0 PyYAML Jinja2 httplib2 six
 # Prepare the ansible runtime
 RUN mkdir /opt/ansible
 WORKDIR /opt/ansible
-# Waiting ansible PR #1513
-# https://github.com/ansible/ansible/pull/1513
+# We still can't use the --recursive, as there is one temp fix
+# in ansible-modules-core branch below:
 #RUN git clone https://github.com/ansible/ansible.git --recursive
-RUN git clone https://github.com/keinohguchi/ansible.git
+RUN git clone https://github.com/ansible/ansible.git
 WORKDIR /opt/ansible/ansible/lib/ansible/modules
 RUN git clone https://github.com/keinohguchi/ansible-modules-core.git core
 
