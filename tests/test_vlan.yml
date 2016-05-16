@@ -1,0 +1,139 @@
+---
+- name: simple bridge with eight ports, all L2
+  hosts: switches@travis
+  gather_facts: yes
+  vars:
+    ansible_user: admin
+    ops_system_hostname: VlanTestSwitch
+    ops_debug: yes
+    ops_provider:
+      username: netop
+      password: netop
+      host: "{{ ansible_host }}"
+      port: "{{ ansible_port }}"
+
+  roles:
+    - role: switch
+      ops_intf_admin_state: up
+      ops_vrfs:
+        - name: vrf_default
+          ports: []
+      ops_bridges:
+        - name: bridge_normal
+          ports: [1, 2, 3, 4, 5, 6, 7, 8]
+          vlans:
+            - name: VLAN2
+              id: 2
+            - name: VLAN10
+              id: 10
+              admin: up
+            - name: VLAN101
+              id: 101
+              admin: up
+            - name: VLAN1002
+              id: 1002
+            - name: VLAN4094
+              id: 4094
+              admin: up
+      ops_interfaces:
+        - name: 1
+        - name: 2
+        - name: 3
+        - name: 4
+        - name: 5
+        - name: 6
+        - name: 7
+        - name: 8
+      ops_ports:
+        - name: 1
+        - name: 2
+          tag: 2
+        - name: 3
+          tag: 10
+        - name: 4
+          tag: 101
+        - name: 5
+          tag: 1002
+        - name: 6
+          tag: 1002
+        - name: 7
+          tag: 4094
+        - name: 8
+          tag: 4094
+
+  tasks:
+    - name: show version CLI
+      ops_command:
+        commands:
+          - show version
+        provider: "{{ ops_provider }}"
+        interval: 1
+        retries: 2
+      register: show_version_result
+      connection: local
+
+    - name: show version result
+      debug: var=show_version_result
+      when: ops_debug
+
+    - name: show vlan CLI
+      ops_command:
+        commands:
+          - show vlan
+        provider: "{{ ops_provider }}"
+        interval: 3
+        retries: 3
+      register: show_vlan_result
+      connection: local
+
+    - name: show vlan result
+      debug: var=show_vlan_result
+      when: ops_debug
+
+    - name: show running-config CLI
+      ops_command:
+        commands:
+          - show running-config
+        provider: "{{ ops_provider }}"
+        interval: 5
+        retries: 3
+      register: show_running_config_result
+      connection: local
+
+    - name: show running-config result
+      debug: var=show_running_config_result
+      when: ops_debug
+
+  post_tasks:
+    - name: check VLAN mappings
+      ops_command:
+        commands:
+          - show hostname
+          - show vlan 1
+          - show vlan 2
+          - show vlan 10
+          - show vlan 101
+          - show vlan 1002
+          - show vlan 4094
+        provider: "{{ ops_provider }}"
+        waitfor:
+          - "result[0] contains '{{ ops_system_hostname }}'"
+          - "result[1] contains DEFAULT_VLAN_1"
+          - "result[1] contains up"
+          - "result[2] contains VLAN2"
+          - "result[2] contains down"
+          - "result[3] contains VLAN10"
+          - "result[3] contains up"
+          - "result[4] contains VLAN101"
+          - "result[4] contains up"
+          - "result[5] contains VLAN1002"
+          - "result[5] contains down"
+          - "result[6] contains VLAN4094"
+          - "result[6] contains up"
+        interval: 5
+        retries: 3
+      register: test_result
+      connection: local
+    - name: debug the test result
+      debug: var=test_result
+      when: ops_debug
