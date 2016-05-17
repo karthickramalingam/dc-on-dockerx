@@ -6,7 +6,8 @@
     ansible_user: admin
     ops_system_hostname: SimpleHostname
     ops_debug: yes
-    ops_provider:
+    ops_cli_provider:
+      transport: cli
       username: netop
       password: netop
       host: "{{ ansible_host }}"
@@ -20,7 +21,7 @@
       ops_command:
         commands:
           - show version
-        provider: "{{ ops_provider }}"
+        provider: "{{ ops_cli_provider }}"
         interval: 1
         retries: 2
       register: show_version_result
@@ -34,7 +35,7 @@
       ops_command:
         commands:
           - show running-config
-        provider: "{{ ops_provider }}"
+        provider: "{{ ops_cli_provider }}"
         interval: 5
         retries: 3
       register: show_running_config_result
@@ -45,17 +46,17 @@
       when: ops_debug
 
   post_tasks:
-    - name: check the hostname on the switch
+    - name: check the hostname on the switch with CLI
       ops_command:
         commands:
           - show hostname
-        provider: "{{ ops_provider }}"
+        provider: "{{ ops_cli_provider }}"
         waitfor:
           - "result[0] contains '{{ ops_system_hostname }}'"
         interval: 1
         retries: 2
-      register: test_result
+      register: cli_result
       connection: local
-    - name: debug the test result
-      debug: var=test_result
+    - name: debug the CLI result
+      debug: var=cli_result
       when: ops_debug

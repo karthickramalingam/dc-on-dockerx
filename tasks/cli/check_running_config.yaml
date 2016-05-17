@@ -3,7 +3,7 @@
   ops_command:
     commands:
       - show running-config
-    provider: "{{ ops_provider }}"
+    provider: "{{ ops_cli_provider }}"
     waitfor:
       - "result[0] contains 'hostname {{ ops_system_hostname }}'"
     interval: 5

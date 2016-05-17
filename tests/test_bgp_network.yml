@@ -5,7 +5,8 @@
   vars:
     ansible_user: admin
     ops_debug: yes
-    cli:
+    ops_cli_provider:
+      transport: cli
       username: netop
       password: netop
       host: "{{ ansible_host }}"
@@ -25,7 +26,7 @@
       ops_command:
         commands:
           - show running-config
-        provider: "{{ cli }}"
+        provider: "{{ ops_cli_provider }}"
         waitfor:
           - "result[0] contains 'router bgp 65000'"
           - "result[0] contains 'bgp router-id 172.16.0.1'"

@@ -47,7 +47,7 @@
       ops_command:
         commands:
           - show ip bgp neighbors
-        provider: "{{ ops_provider }}"
+        provider: "{{ ops_cli_provider }}"
         waitfor:
           - "result[0] contains 'state: Established'"
         interval: 3
@@ -67,7 +67,7 @@
       ops_command:
         commands:
           - show ip bgp
-        provider: "{{ ops_provider }}"
+        provider: "{{ ops_cli_provider }}"
         waitfor:
           - "result[0] contains '172.16.0.0/24'"
           - "result[0] contains '172.16.1.0/24'"

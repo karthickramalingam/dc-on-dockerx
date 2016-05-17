@@ -6,8 +6,9 @@ ansible_user: admin
 ops_username: netop
 ops_password: netop
 
-# ops_command provider variable.
-ops_provider:
+# ops_command provider for CLI transport.
+ops_cli_provider:
+  transport: cli
   username: "{{ ops_username }}"
   password: "{{ ops_password }}"
   host: "{{ ansible_host }}"

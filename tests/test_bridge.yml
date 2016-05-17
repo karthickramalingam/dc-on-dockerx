@@ -6,7 +6,8 @@
     ansible_user: admin
     ops_system_hostname: SimpleBridge
     ops_debug: yes
-    ops_provider:
+    ops_cli_provider:
+      transport: cli
       username: netop
       password: netop
       host: "{{ ansible_host }}"
@@ -45,7 +46,7 @@
       ops_command:
         commands:
           - show version
-        provider: "{{ ops_provider }}"
+        provider: "{{ ops_cli_provider }}"
         interval: 1
         retries: 2
       register: show_version_result
@@ -59,7 +60,7 @@
       ops_command:
         commands:
           - show vlan
-        provider: "{{ ops_provider }}"
+        provider: "{{ ops_cli_provider }}"
         interval: 3
         retries: 3
       register: show_vlan_result
@@ -73,7 +74,7 @@
       ops_command:
         commands:
           - show running-config
-        provider: "{{ ops_provider }}"
+        provider: "{{ ops_cli_provider }}"
         interval: 5
         retries: 3
       register: show_running_config_result
@@ -96,7 +97,7 @@
           - show interface 6 brief
           - show interface 7 brief
           - show interface 8 brief
-        provider: "{{ ops_provider }}"
+        provider: "{{ ops_cli_provider }}"
         waitfor:
           - "result[0] contains '{{ ops_system_hostname }}'"
           - "result[1] contains 'access'"
