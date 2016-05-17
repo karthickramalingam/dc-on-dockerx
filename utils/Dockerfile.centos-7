@@ -53,7 +53,7 @@ WORKDIR /opt/ansible
 # We still can't use the --recursive, as there is one temp fix
 # in ansible-modules-core branch below:
 #RUN git clone https://github.com/ansible/ansible.git --recursive
-RUN git clone https://github.com/ansible/ansible.git
+RUN git clone https://github.com/keinohguchi/ansible.git
 WORKDIR /opt/ansible/ansible/lib/ansible/modules
 RUN git clone https://github.com/keinohguchi/ansible-modules-core.git core
 
