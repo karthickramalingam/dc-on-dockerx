@@ -10,6 +10,7 @@ services:
     privileged: true
     ports:
       - "10022:22"
+      - "10443:443"
     volumes:
       - /tmp:/tmp
       - /dev/log:/dev/log
