@@ -68,3 +68,15 @@
     - name: debug the CLI result
       debug: var=cli_result
       when: ops_debug
+
+    - name: get the system facts over REST API
+      connection: local
+      ops_facts:
+        provider: "{{ ops_rest_provider }}"
+        endpoints:
+          - /system
+      register: rest_result
+
+    - name: debug the REST result
+      debug: var=rest_result
+      when: ops_debug
