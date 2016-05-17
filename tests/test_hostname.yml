@@ -12,6 +12,14 @@
       password: netop
       host: "{{ ansible_host }}"
       port: "{{ ansible_port }}"
+    ops_rest_provider:
+      transport: rest
+      username: netop
+      password: netop
+      host: "{{ ansible_host }}"
+      port: "{{ ops_rest_port }}"
+      use_ssl: true
+      validate_certs: no
 
   roles:
     - role: switch
@@ -19,9 +27,9 @@
   tasks:
     - name: show version CLI
       ops_command:
+        provider: "{{ ops_cli_provider }}"
         commands:
           - show version
-        provider: "{{ ops_cli_provider }}"
         interval: 1
         retries: 2
       register: show_version_result
@@ -33,9 +41,9 @@
 
     - name: show running-config CLI
       ops_command:
+        provider: "{{ ops_cli_provider }}"
         commands:
           - show running-config
-        provider: "{{ ops_cli_provider }}"
         interval: 5
         retries: 3
       register: show_running_config_result
@@ -48,9 +56,9 @@
   post_tasks:
     - name: check the hostname on the switch with CLI
       ops_command:
+        provider: "{{ ops_cli_provider }}"
         commands:
           - show hostname
-        provider: "{{ ops_cli_provider }}"
         waitfor:
           - "result[0] contains '{{ ops_system_hostname }}'"
         interval: 1

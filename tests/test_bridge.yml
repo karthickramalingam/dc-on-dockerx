@@ -44,9 +44,9 @@
   tasks:
     - name: show version CLI
       ops_command:
+        provider: "{{ ops_cli_provider }}"
         commands:
           - show version
-        provider: "{{ ops_cli_provider }}"
         interval: 1
         retries: 2
       register: show_version_result
@@ -58,9 +58,9 @@
 
     - name: show vlan CLI
       ops_command:
+        provider: "{{ ops_cli_provider }}"
         commands:
           - show vlan
-        provider: "{{ ops_cli_provider }}"
         interval: 3
         retries: 3
       register: show_vlan_result
@@ -72,9 +72,9 @@
 
     - name: show running-config CLI
       ops_command:
+        provider: "{{ ops_cli_provider }}"
         commands:
           - show running-config
-        provider: "{{ ops_cli_provider }}"
         interval: 5
         retries: 3
       register: show_running_config_result
@@ -87,6 +87,7 @@
   post_tasks:
     - name: check if ports are L2 access ports
       ops_command:
+        provider: "{{ ops_cli_provider }}"
         commands:
           - show hostname
           - show interface 1 brief
@@ -97,7 +98,6 @@
           - show interface 6 brief
           - show interface 7 brief
           - show interface 8 brief
-        provider: "{{ ops_cli_provider }}"
         waitfor:
           - "result[0] contains '{{ ops_system_hostname }}'"
           - "result[1] contains 'access'"

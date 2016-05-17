@@ -1,9 +1,9 @@
 ---
 - name: check running-config CLI output
   ops_command:
+    provider: "{{ ops_cli_provider }}"
     commands:
       - show running-config
-    provider: "{{ ops_cli_provider }}"
     waitfor:
       - "result[0] contains 'hostname {{ ops_system_hostname }}'"
     interval: 5

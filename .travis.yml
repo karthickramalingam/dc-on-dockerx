@@ -19,6 +19,7 @@ env:
     build_path: utils
     dut_host: fab1
     dut_port: 22
+    dut_rest_port: 443
     # Ubuntu/14.04 is the default ansible control machine distribution
     distribution: ubuntu
     version: 14.04
@@ -116,6 +117,7 @@ script:
     ansible-playbook ${test_pathname}
     ${ansible_ops_debug} ${ansible_ops_limit} ${ansible_ops_skip_tags}
     --extra-vars "ansible_host=${dut_host} ansible_port=${dut_port}"
+    --extra-vars "ops_rest_port=${dut_rest_port}"
     --syntax-check
 
   # Run the test
@@ -125,6 +127,7 @@ script:
     ansible-playbook ${test_pathname}
     ${ansible_ops_debug} ${ansible_ops_limit} ${ansible_ops_skip_tags}
     --extra-vars "ansible_host=${dut_host} ansible_port=${dut_port}"
+    --extra-vars "ops_rest_port=${dut_rest_port}"
 
 after_script:
   # Check if we're sharing the same docker host

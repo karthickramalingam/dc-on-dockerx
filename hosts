@@ -3,13 +3,13 @@ ansible_host=localhost
 
 [all]
 docker
-fab1   ansible_port=10022
-spine1 ansible_port=11022
-spine2 ansible_port=12022
-leaf1  ansible_port=13022
-leaf2  ansible_port=14022
-leaf3  ansible_port=15022
-leaf4  ansible_port=16022
+fab1   ansible_port=10022 ops_rest_port=10443
+spine1 ansible_port=11022 ops_rest_port=11443
+spine2 ansible_port=12022 ops_rest_port=12443
+leaf1  ansible_port=13022 ops_rest_port=13443
+leaf2  ansible_port=14022 ops_rest_port=14443
+leaf3  ansible_port=15022 ops_rest_port=15443
+leaf4  ansible_port=16022 ops_rest_port=16443
 
 [switches:children]
 fabrics

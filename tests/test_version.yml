@@ -18,9 +18,9 @@
   tasks:
     - name: show version CLI
       ops_command:
+        provider: "{{ ops_cli_provider }}"
         commands:
           - show version
-        provider: "{{ ops_cli_provider }}"
         interval: 1
         retries: 2
       register: show_version_result
@@ -32,9 +32,9 @@
 
     - name: show running-config CLI
       ops_command:
+        provider: "{{ ops_cli_provider }}"
         commands:
           - show running-config
-        provider: "{{ ops_cli_provider }}"
         interval: 5
         retries: 3
       register: show_running_config_result
@@ -47,9 +47,9 @@
   post_tasks:
     - name: check if switch responds to 'show version' CLI
       ops_command:
+        provider: "{{ ops_cli_provider }}"
         commands:
           - show version
-        provider: "{{ ops_cli_provider }}"
         waitfor:
           - "result[0] contains {{ ops_name }}"
         interval: 1

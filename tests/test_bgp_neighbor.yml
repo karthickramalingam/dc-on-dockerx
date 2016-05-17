@@ -30,9 +30,9 @@
   post_tasks:
     - name: check the bgp neighbors on the switch
       ops_command:
+        provider: "{{ ops_cli_provider }}"
         commands:
           - show running-config
-        provider: "{{ ops_cli_provider }}"
         waitfor:
           - "result[0] contains 'router bgp 65000'"
           - "result[0] contains 'bgp router-id 172.16.0.1'"

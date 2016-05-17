@@ -1,9 +1,9 @@
 ---
 - name: check hostname CLI output
   ops_command:
+    provider: "{{ ops_cli_provider }}"
     commands:
       - show hostname
-    provider: "{{ ops_cli_provider }}"
     waitfor:
       - "result[0] contains '{{ ops_system_hostname }}'"
     interval: 3

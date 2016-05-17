@@ -14,6 +14,17 @@ ops_cli_provider:
   host: "{{ ansible_host }}"
   port: "{{ ansible_port }}"
 
+# ops_command provider for REST transport.
+ops_rest_port: 443
+ops_rest_provider:
+  transport: rest
+  username: "{{ ops_username }}"
+  password: "{{ ops_password }}"
+  host: "{{ ansible_host }}"
+  port: "{{ ops_rest_port }}"
+  use_ssl: true
+  validate_certs: no
+
 # Just use the inventory name as the host name.
 ops_system_hostname: "{{ inventory_hostname }}"
 

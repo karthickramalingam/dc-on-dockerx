@@ -1,9 +1,9 @@
 ---
 - name: check the show version CLI output
   ops_command:
+    provider: "{{ ops_cli_provider }}"
     commands:
       - show version
-    provider: "{{ ops_cli_provider }}"
     waitfor:
       - "result[0] contains {{ expected }}"
     interval: 3
