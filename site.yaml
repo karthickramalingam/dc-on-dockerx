@@ -42,7 +42,7 @@
   hosts: switches
   gather_facts: no
   vars:
-    ops_debug: yes
+    ops_debug: no
     expected: '{{ ops_system_hostname }}'
   tasks:
     - include: tasks/cli/check_hostname.yaml
@@ -55,9 +55,12 @@
   gather_facts: no
   vars:
     ops_debug: yes
+    expected: '{{ ops_system_hostname }}'
   tasks:
     - include: tasks/cli/check_running_config.yaml
       tags: [ base, check, cli ]
+    - include: tasks/rest/check_full_config.yaml
+      tags: [ base, check, rest ]
 
 - include: bgp.yaml
   tags: [ bgp ]
