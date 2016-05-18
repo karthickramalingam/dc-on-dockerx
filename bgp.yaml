@@ -5,7 +5,7 @@
   vars:
     ops_debug: no
   roles:
-    - role: bgp
+    - { role: bgp, tags: [ config ] }
 
 - name: BGP configuration on spine switches
   hosts: spines
@@ -13,7 +13,7 @@
   vars:
     ops_debug: no
   roles:
-    - role: bgp
+    - { role: bgp, tags: [ config ] }
 
 - name: BGP configuration on leaf switches
   hosts: leaves
@@ -21,7 +21,7 @@
   vars:
     ops_debug: no
   roles:
-    - role: bgp
+    - { role: bgp, tags: [ config ] }
 
 - name: check the switch configuration
   hosts: switches
@@ -30,6 +30,7 @@
     ops_debug: yes
   tasks:
     - include: tasks/cli/check_running_config.yaml
+      tags: [ check ]
 
 - name: wait for BGP peering up
   hosts: switches
@@ -44,6 +45,8 @@
     ops_debug: no
   tasks:
     - name: show ip bgp neighbors
+      tags: [ check ]
+      connection: local
       ops_command:
         commands:
           - show ip bgp neighbors
@@ -53,8 +56,9 @@
         interval: 3
         retries: 3
       register: result
-      connection: local
+
     - name: print out the result
+      tags: [ check ]
       debug: var=result
 
 - name: check the BGP RIB
@@ -64,6 +68,8 @@
     ops_debug: no
   tasks:
     - name: show ip bgp
+      connection: local
+      tags: [ check ]
       ops_command:
         commands:
           - show ip bgp
@@ -87,6 +93,7 @@
         interval: 3
         retries: 3
       register: result
-      connection: local
+
     - name: print out the result
+      tags: [ check ]
       debug: var=result

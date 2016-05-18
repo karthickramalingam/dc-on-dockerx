@@ -1,13 +1,15 @@
 ---
 - name: check the switch version
   hosts: switches
-  gather_facts: yes
+  gather_facts: no
   vars:
     ops_debug: no
     expected: OpenSwitch
   tasks:
     - include: tasks/cli/check_version.yaml
-      tags: [ always, basic ]
+      tags: [ base, check ]
+    - include: tasks/rest/check_version.yaml
+      tags: [ base, check ]
 
 - name: L2/L3 configuration on fabric switches
   hosts: fabrics
@@ -16,7 +18,7 @@
     ops_intf_admin_state: up
     ops_debug: no
   roles:
-    - { role: switch, tags: [ always, basic ] }
+    - { role: switch, tags: [ base, config ] }
 
 - name: L2/L3 configuration on spine switches
   hosts: spines
@@ -25,7 +27,7 @@
     ops_intf_admin_state: up
     ops_debug: no
   roles:
-    - { role: switch, tags: [ always, basic ] }
+    - { role: switch, tags: [ base, config ] }
 
 - name: L2/L3 configuration on leaf switches
   hosts: leaves
@@ -34,7 +36,7 @@
     ops_intf_admin_state: up
     ops_debug: no
   roles:
-    - { role: switch, tags: [ always, basic ] }
+    - { role: switch, tags: [ base, config ] }
 
 - name: check the switch hostname
   hosts: switches
@@ -43,7 +45,7 @@
     ops_debug: no
   tasks:
     - include: tasks/cli/check_hostname.yaml
-      tags: [ always, basic ]
+      tags: [ base, check ]
 
 - name: check the switch configuration
   hosts: switches
@@ -52,7 +54,7 @@
     ops_debug: yes
   tasks:
     - include: tasks/cli/check_running_config.yaml
-      tags: [ always, basic ]
+      tags: [ base, check ]
 
 - include: bgp.yaml
   tags: [ bgp ]

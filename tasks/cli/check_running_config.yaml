@@ -1,5 +1,6 @@
 ---
 - name: check running-config CLI output
+  connection: local
   ops_command:
     provider: "{{ ops_cli_provider }}"
     commands:
@@ -9,7 +10,6 @@
     interval: 5
     retries: 3
   register: result
-  connection: local
 
 - name: print the CLI output
   debug: var=result
