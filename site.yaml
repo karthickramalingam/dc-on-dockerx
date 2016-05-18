@@ -42,10 +42,13 @@
   hosts: switches
   gather_facts: no
   vars:
-    ops_debug: no
+    ops_debug: yes
+    expected: '{{ ops_system_hostname }}'
   tasks:
     - include: tasks/cli/check_hostname.yaml
       tags: [ base, check, cli ]
+    - include: tasks/rest/check_hostname.yaml
+      tags: [ base, check, rest ]
 
 - name: check the switch configuration
   hosts: switches

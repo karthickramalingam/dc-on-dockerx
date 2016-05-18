@@ -1,5 +1,5 @@
 ---
-- name: check the show version CLI output
+- name: check the switch version by CLI
   connection: local
   ops_command:
     provider: "{{ ops_cli_provider }}"
