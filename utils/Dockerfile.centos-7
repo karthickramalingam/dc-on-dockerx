@@ -48,18 +48,14 @@ RUN easy_install pip
 RUN pip install paramiko==1.16.0 PyYAML Jinja2 httplib2 six
 
 # Prepare the ansible runtime
-RUN mkdir /opt/ansible
-WORKDIR /opt/ansible
-# We still can't use the --recursive, as there is one temp fix
-# in ansible-modules-core branch below:
-#RUN git clone https://github.com/ansible/ansible.git --recursive
-RUN git clone https://github.com/keinohguchi/ansible.git
-WORKDIR /opt/ansible/ansible/lib/ansible/modules
-RUN git clone https://github.com/keinohguchi/ansible-modules-core.git core
+RUN mkdir /opt
+WORKDIR /opt
+RUN git clone https://github.com/ansible/ansible.git --recursive \
+	--branch stable-2.1
 
 # Ansible home
 RUN mkdir /etc/ansible
 WORKDIR /etc/ansible
-ENV PATH /opt/ansible/ansible/bin:/bin:/usr/bin:/sbin:/usr/sbin
-ENV PYTHONPATH /opt/ansible/ansible/lib
-ENV ANSIBLE_LIBRARY /opt/ansible/ansible/library
+ENV PATH /opt/ansible/bin:/bin:/usr/bin:/sbin:/usr/sbin
+ENV PYTHONPATH /opt/ansible/lib
+ENV ANSIBLE_LIBRARY /opt/ansible/library
