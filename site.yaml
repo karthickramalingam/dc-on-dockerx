@@ -7,9 +7,9 @@
     expected: 0.4.0
   tasks:
     - include: tasks/cli/check_version.yaml
-      tags: [ base, check ]
+      tags: [ base, check, cli ]
     - include: tasks/rest/check_version.yaml
-      tags: [ base, check ]
+      tags: [ base, check, rest ]
 
 - name: L2/L3 configuration on fabric switches
   hosts: fabrics
@@ -18,7 +18,7 @@
     ops_intf_admin_state: up
     ops_debug: no
   roles:
-    - { role: switch, tags: [ base, config ] }
+    - { role: switch, tags: [ base, config, dc ] }
 
 - name: L2/L3 configuration on spine switches
   hosts: spines
@@ -27,7 +27,7 @@
     ops_intf_admin_state: up
     ops_debug: no
   roles:
-    - { role: switch, tags: [ base, config ] }
+    - { role: switch, tags: [ base, config, dc ] }
 
 - name: L2/L3 configuration on leaf switches
   hosts: leaves
@@ -36,7 +36,7 @@
     ops_intf_admin_state: up
     ops_debug: no
   roles:
-    - { role: switch, tags: [ base, config ] }
+    - { role: switch, tags: [ base, config, dc ] }
 
 - name: check the switch hostname
   hosts: switches
@@ -45,7 +45,7 @@
     ops_debug: no
   tasks:
     - include: tasks/cli/check_hostname.yaml
-      tags: [ base, check ]
+      tags: [ base, check, cli ]
 
 - name: check the switch configuration
   hosts: switches
@@ -54,7 +54,7 @@
     ops_debug: yes
   tasks:
     - include: tasks/cli/check_running_config.yaml
-      tags: [ base, check ]
+      tags: [ base, check, cli ]
 
 - include: bgp.yaml
   tags: [ bgp ]

@@ -1,5 +1,5 @@
 ---
-- name: check the version through /system REST output
+- name: check the version /system REST API
   connection: local
   ops_facts:
     provider: "{{ ops_rest_provider }}"
