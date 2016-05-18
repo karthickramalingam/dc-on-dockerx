@@ -6,7 +6,7 @@
     endpoints:
       - /system
   register: result
-  failed_when: "'{{ expected }}' != endpoints[0].status.software_info.os_name"
+  failed_when: "'{{ expected }}' not in endpoints[0].status.switch_version"
 
 - name: print the REST output
   debug: var=result
