@@ -34,13 +34,13 @@ RUN easy_install pip
 RUN pip install paramiko==1.16.0 PyYAML Jinja2 httplib2 six
 
 # Prepare the ansible runtime
-RUN mkdir /opt
+RUN mkdir -p /opt
 WORKDIR /opt
 RUN git clone https://github.com/ansible/ansible.git --recursive \
 	--branch stable-2.1
 
 # Ansible home
-RUN mkdir /etc/ansible
+RUN mkdir -p /etc/ansible
 WORKDIR /etc/ansible
 ENV PATH /opt/ansible/bin:/bin:/usr/bin:/sbin:/usr/sbin
 ENV PYTHONPATH /opt/ansible/lib
