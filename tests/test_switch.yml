@@ -52,6 +52,7 @@
 
   tasks:
     - name: show version CLI
+      connection: local
       ops_command:
         provider: "{{ ops_cli_provider }}"
         commands:
@@ -59,13 +60,13 @@
         interval: 1
         retries: 2
       register: show_version_result
-      connection: local
 
     - name: show version result
       debug: var=show_version_result
       when: ops_debug
 
     - name: show ip route CLI
+      connection: local
       ops_command:
         provider: "{{ ops_cli_provider }}"
         commands:
@@ -73,13 +74,13 @@
         interval: 3
         retries: 3
       register: show_ip_route_result
-      connection: local
 
     - name: show ip route result
       debug: var=show_ip_route_result
       when: ops_debug
 
     - name: show running-config CLI
+      connection: local
       ops_command:
         provider: "{{ ops_cli_provider }}"
         commands:
@@ -87,7 +88,6 @@
         interval: 5
         retries: 3
       register: show_running_config_result
-      connection: local
 
     - name: show running-config result
       debug: var=show_running_config_result
@@ -95,6 +95,7 @@
 
   post_tasks:
     - name: Check if ports are correctly configured as L2 and L3 ports
+      connection: local
       ops_command:
         provider: "{{ ops_cli_provider }}"
         commands:
@@ -118,7 +119,7 @@
         interval: 5
         retries: 3
       register: test_result
-      connection: local
+
     - name: show the test result
       debug: var=test_result
       when: ops_debug

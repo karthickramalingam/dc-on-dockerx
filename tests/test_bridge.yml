@@ -51,6 +51,7 @@
 
   tasks:
     - name: show version CLI
+      connection: local
       ops_command:
         provider: "{{ ops_cli_provider }}"
         commands:
@@ -58,13 +59,13 @@
         interval: 1
         retries: 2
       register: show_version_result
-      connection: local
 
     - name: show version result
       debug: var=show_version_result
       when: ops_debug
 
     - name: show vlan CLI
+      connection: local
       ops_command:
         provider: "{{ ops_cli_provider }}"
         commands:
@@ -72,13 +73,13 @@
         interval: 3
         retries: 3
       register: show_vlan_result
-      connection: local
 
     - name: show vlan result
       debug: var=show_vlan_result
       when: ops_debug
 
     - name: show running-config CLI
+      connection: local
       ops_command:
         provider: "{{ ops_cli_provider }}"
         commands:
@@ -86,7 +87,6 @@
         interval: 5
         retries: 3
       register: show_running_config_result
-      connection: local
 
     - name: show running-config result
       debug: var=show_running_config_result
@@ -94,6 +94,7 @@
 
   post_tasks:
     - name: check if ports are L2 access ports
+      connection: local
       ops_command:
         provider: "{{ ops_cli_provider }}"
         commands:
@@ -119,12 +120,12 @@
         interval: 5
         retries: 3
       register: test_result
-      connection: local
+
     - name: debug the test result
       debug: var=test_result
       when: ops_debug
 
-    - name: get the system, bridge, interface, and ports facts over REST API
+    - name: get the system, bridge, interface, and port facts over REST API
       connection: local
       ops_facts:
         provider: "{{ ops_rest_provider }}"

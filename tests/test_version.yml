@@ -25,6 +25,7 @@
 
   tasks:
     - name: show version CLI
+      connection: local
       ops_command:
         provider: "{{ ops_cli_provider }}"
         commands:
@@ -32,13 +33,13 @@
         interval: 1
         retries: 2
       register: show_version_result
-      connection: local
 
     - name: show version result
       debug: var=show_version_result
       when: ops_debug
 
     - name: show running-config CLI
+      connection: local
       ops_command:
         provider: "{{ ops_cli_provider }}"
         commands:
@@ -46,7 +47,6 @@
         interval: 5
         retries: 3
       register: show_running_config_result
-      connection: local
 
     - name: show running-config result
       debug: var=show_running_config_result
@@ -54,6 +54,7 @@
 
   post_tasks:
     - name: check if switch responds to 'show version' CLI
+      connection: local
       ops_command:
         provider: "{{ ops_cli_provider }}"
         commands:
@@ -63,7 +64,7 @@
         interval: 1
         retries: 2
       register: result
-      connection: local
+
     - name: debug the result
       debug: var=result
       when: ops_debug

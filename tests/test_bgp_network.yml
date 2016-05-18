@@ -31,6 +31,7 @@
 
   post_tasks:
     - name: check the bgp network on the switch
+      connection: local
       ops_command:
         provider: "{{ ops_cli_provider }}"
         commands:
@@ -44,7 +45,7 @@
         interval: 1
         retries: 2
       register: result
-      connection: local
+
     - name: debug the result
       debug: var=result
       when: ops_debug
