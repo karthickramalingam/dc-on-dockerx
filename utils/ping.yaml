@@ -5,7 +5,8 @@
   vars:
     ansible_user: admin
   tasks:
-    - ping:
+    - name: check fabric switches' SSH connectivity
+      ping:
               
 - name: check spine switch health
   hosts: spines
@@ -13,7 +14,8 @@
   vars:
     ansible_user: admin
   tasks:
-    - ping:
+    - name: check spine switches' SSH connectivity
+      ping:
               
 - name: check leaf switch health
   hosts: leaves
@@ -21,7 +23,8 @@
   vars:
     ansible_user: admin
   tasks:
-    - ping:
+    - name: check leaf switches' SSH connectivity
+      ping:
 
 - name: check server health
   hosts: servers
@@ -29,4 +32,5 @@
   vars:
     ansible_user: admin
   tasks:
-    - ping:
+    - name: check servers' SSH connectivity
+      ping:
