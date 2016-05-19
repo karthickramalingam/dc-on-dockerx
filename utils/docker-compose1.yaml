@@ -25,6 +25,7 @@ services:
   server1:
     image: server/local_build
     container_name: "server1"
+    privileged: true
     ports:
       - "21022:22"
     networks:
@@ -33,6 +34,7 @@ services:
   server2:
     image: server/local_build
     container_name: "server2"
+    privileged: true
     ports:
       - "22022:22"
     networks:
