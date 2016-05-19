@@ -15,3 +15,5 @@
         - Dockerfile
         - ops-if-netns.sh
         - "{{ your_public_key }}"
+        - server/Dockerfile
+        - server

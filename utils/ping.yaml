@@ -25,3 +25,12 @@
   tasks:
     - name: check the reachability
       ping:
+
+- name: check server health
+  hosts: servers
+  gather_facts: no
+  vars:
+    ansible_user: admin
+  tasks:
+    - name: check the reachability
+      ping:
