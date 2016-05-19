@@ -61,6 +61,17 @@ connect_fabric_switches()
 	fi
 }
 
+# connect servers to fabric networks
+connect_servers_to_fabric_networks()
+{
+	for i in {1..2}; do
+		docker inspect server${i} > /dev/null
+		if [ $? = 0 ]; then
+			docker network connect ${net_prefix}${i} server${i}
+		fi
+	done
+}
+
 # connect spine switches
 connect_spine_switches()
 {
@@ -91,3 +102,4 @@ connect_leaf_switches()
 # main
 create_fabric_networks
 connect_fabric_switches
+connect_servers_to_fabric_networks
