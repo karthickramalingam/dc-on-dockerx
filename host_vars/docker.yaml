@@ -10,7 +10,7 @@ docker_compose_file: docker-compose.yaml
 docker_network_script: docker-network.sh
 
 # Docker server file for server images
-docker_server_file: Dockerfile.server.ubuntu-14.04
+docker_server_file: server/Dockerfile
 
 # Temporary file to indicate the docker network setting.
 docker_network_done_file: /tmp/docker_network.done

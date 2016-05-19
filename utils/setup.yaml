@@ -13,14 +13,15 @@
         - { src: "~/.ssh/{{ your_public_key}}", dst: "{{ your_public_key }}" }
         - { src: ops-if-netns.sh, dst: ops-if-netns.sh }
         - { src: "{{ docker_server_file }}", dst: server/Dockerfile }
-        - { src: "~/.ssh/{{ your_public_key}}", dst: "server/{{ your_public_key }}" }
+        - { src: "~/.ssh/{{ your_public_key}}",
+            dst: "server/{{ your_public_key }}" }
     - name: install pip
       become: yes
       easy_install: name=pip state=present
     - name: install docker-compose
       become: yes
       pip: name=docker-compose state=present
-    - name: build OpenSwitch and server docker image based on utils/Dockerfile*
+    - name: build switch and server docker image through utils/*/Dockerfile
       become: yes
       command: docker-compose build
     - name: run all the container

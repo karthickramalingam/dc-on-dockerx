@@ -1,30 +1,27 @@
 ---
-- name: check switch health
+- name: check fabric switch health
   hosts: fabrics
   gather_facts: no
   vars:
     ansible_user: admin
   tasks:
-    - name: check the reachability
-      ping:
+    - ping:
               
-- name: check switch health
+- name: check spine switch health
   hosts: spines
   gather_facts: no
   vars:
     ansible_user: admin
   tasks:
-    - name: check the reachability
-      ping:
+    - ping:
               
-- name: check switch health
+- name: check leaf switch health
   hosts: leaves
   gather_facts: no
   vars:
     ansible_user: admin
   tasks:
-    - name: check the reachability
-      ping:
+    - ping:
 
 - name: check server health
   hosts: servers
@@ -32,5 +29,4 @@
   vars:
     ansible_user: admin
   tasks:
-    - name: check the reachability
-      ping:
+    - ping:
