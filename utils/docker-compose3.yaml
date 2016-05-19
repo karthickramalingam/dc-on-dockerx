@@ -58,3 +58,12 @@ services:
     networks:
       - default
     command: /usr/sbin/sshd -D
+  server2:
+    image: server/local_build
+    container_name: "server2"
+    privileged: true
+    ports:
+      - "22022:22"
+    networks:
+      - default
+    command: /usr/sbin/sshd -D
