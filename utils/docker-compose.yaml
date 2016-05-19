@@ -1,10 +1,10 @@
 version: '2'
 services:
-  build:
+  build_switch:
     build: .
     image: openswitch/local_build
     command: /bin/true
-  build:
+  build_server:
     build: ./server
     image: server/local_build
     command: /bin/true
