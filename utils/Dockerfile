@@ -1,4 +1,4 @@
-FROM keinohguchi/openswitch:2016051818
+FROM keinohguchi/openswitch:2016051912
 
 MAINTAINER Kei Nohguchi <kei@nohguchi.com>
 
