@@ -24,6 +24,7 @@ env:
     distribution: ubuntu
     version: 14.04
     init: /sbin/init
+    docker_ops_link_switch1: '--link=fab1'
   matrix:
     # Basic sanity check on both on Ubuntu14.04 and CentOS7 machines.
     - test_pathname: tests/test_version.yml
@@ -51,6 +52,10 @@ env:
     - test_pathname: site.yaml
       network_script: docker-network3.sh
       compose_file: docker-compose3.yaml
+      docker_ops_link_server1: '--link=server11'
+      docker_ops_link_server2: '--link=server12'
+      docker_ops_link_server3: '--link=server21'
+      docker_ops_link_server4: '--link=server22'
       ansible_ops_skip_tags: '--skip-tags=bgp'
       ansible_ops_limit: '--limit=fabrics'
       ansible_ops_debug: -vvv
@@ -103,7 +108,10 @@ before_script:
   - >
     sudo docker run --net=${build_path}_default --detach
     --volume=${PWD}:/etc/ansible:rw
-    --link fab1:${dut_host} --link server1:server1 --link server2:server2
+    ${docker_ops_link_switch1} ${docker_ops_link_switch2}
+    ${docker_ops_link_switch3} ${docker_ops_link_switch4}
+    ${docker_ops_link_server1} ${docker_ops_link_server2}
+    ${docker_ops_link_server3} ${docker_ops_link_server4}
     ${docker_ops_privileged} ${docker_ops_volume1}
     ${distribution}-${version}:local ${init} > ${ansible_id}
 

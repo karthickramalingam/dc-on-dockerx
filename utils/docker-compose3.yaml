@@ -50,21 +50,39 @@ services:
     networks:
       - default
     command: /sbin/init
-  server1:
+  server11:
     image: server/local_build
-    container_name: "server1"
+    container_name: "server11"
     privileged: true
     ports:
-      - "21022:22"
+      - "21122:22"
     networks:
       - default
     command: /usr/sbin/sshd -D
-  server2:
+  server12:
     image: server/local_build
-    container_name: "server2"
+    container_name: "server12"
     privileged: true
     ports:
-      - "22022:22"
+      - "21222:22"
+    networks:
+      - default
+    command: /usr/sbin/sshd -D
+  server21:
+    image: server/local_build
+    container_name: "server21"
+    privileged: true
+    ports:
+      - "22122:22"
+    networks:
+      - default
+    command: /usr/sbin/sshd -D
+  server22:
+    image: server/local_build
+    container_name: "server22"
+    privileged: true
+    ports:
+      - "22222:22"
     networks:
       - default
     command: /usr/sbin/sshd -D

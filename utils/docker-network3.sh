@@ -88,17 +88,17 @@ connect_spine_switches()
 # connect servers to spine networks
 connect_servers_to_spine_networks()
 {
-	for i in {1..2}; do
+	for i in 11 12; do
 		docker inspect server${i} > /dev/null
 		if [ $? = 0 ]; then
-			docker network connect ${net_prefix}1${i} server${i}
+			docker network connect ${net_prefix}${i} server${i}
 		fi
 	done
 
-	for i in {3..4}; do
+	for i in 21 22; do
 		docker inspect server${i} > /dev/null
 		if [ $? = 0 ]; then
-			docker network connect ${net_prefix}2$(expr ${i} - 2) server${i}
+			docker network connect ${net_prefix}${i} server${i}
 		fi
 	done
 }
