@@ -62,5 +62,8 @@
     - include: tasks/rest/check_full_config.yaml
       tags: [ base, check, rest ]
 
+- include: server.yaml
+  tags: [ server ]
+
 - include: bgp.yaml
   tags: [ bgp ]

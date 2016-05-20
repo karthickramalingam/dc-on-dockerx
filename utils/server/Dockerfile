@@ -9,6 +9,9 @@ RUN mkdir /var/run/sshd
 # Create admin account, so that we can share the Ansible operation with OpenSwitch
 RUN useradd -m admin
 
+# Allow password-less sudo
+RUN sed -i 's@%admin ALL=(ALL) ALL@%admin ALL=(ALL) NOPASSWD:ALL@' /etc/sudoers
+
 # Copy the ssh public key
 RUN mkdir /home/admin/.ssh
 COPY id_rsa.pub /home/admin/.ssh/authorized_keys

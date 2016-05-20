@@ -24,7 +24,7 @@
     - name: build switch and server docker image through utils/*/Dockerfile
       become: yes
       command: docker-compose build
-    - name: run all the container
+    - name: run all the containers
       command: docker-compose up -d
     - name: setup network by utils/docker-network.sh
       script: >

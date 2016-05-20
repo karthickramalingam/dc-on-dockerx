@@ -1,5 +1,5 @@
 ---
-# We'll use the admin account to access OpenSwitch hosts.
+# We'll use the admin account to access OpenSwitch switches.
 ansible_user: admin
 
 # Those will be secured by the ansible vault in the real environment.

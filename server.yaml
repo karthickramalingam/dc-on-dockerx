@@ -1,0 +1,9 @@
+---
+- name: make all traffic to 172.16.0.0/16 through eth1
+  hosts: servers
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: add 172.16.0.0/16 through eth1
+      tags: [ server, config ]
+      command: ip route add 172.16.0.0/16 dev eth1
