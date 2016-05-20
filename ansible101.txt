@@ -152,7 +152,7 @@ $ cat server.yaml
       become: yes
       command: ip route add 172.16.0.0/16 dev eth1
 
-git clone https://github.com/keinohguchi/dc-on-docker --recursive
+$ git clone https://github.com/keinohguchi/dc-on-docker --recursive
 
 $ irssi -c chat.freenode.net
 [(status)] /join #openswitch
