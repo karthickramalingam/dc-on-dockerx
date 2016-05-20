@@ -1,0 +1,51 @@
+Ansible
+   101
+
+Kei
+
+Nohguchi
+
+What?
+
+Automation
+
+Deployment
+
+Provisioning
+
+Orchestration
+
+1) Inventory
+2) Playbook
+3) Play
+4) Task
+
+Inventory
+1) hosts
+2) host_vars
+3) group_vars
+
+hosts
+
+[all:vars]
+ansible_host=localhost
+[all]
+docker
+fab1 ansible_port=10022 ops_rest_port=10443
+[switches:children]
+fabrics
+[fabrics]
+fab1
+
+host_vars/fab1.yaml
+
+group_vars/switches.yaml
+
+Playbook
+
+Play
+
+Task
+
+ Muchas
+Gracious!
