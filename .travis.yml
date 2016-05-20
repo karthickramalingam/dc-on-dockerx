@@ -98,12 +98,12 @@ before_script:
     --file=${build_path}/Dockerfile.${distribution}-${version}
     --tag=${distribution}-${version}:local ${build_path}
 
-  # Run ansible control machine, linked to OpenSwitch container
+  # Run ansible control machine, linked to containers
   - ansible_id=$(mktemp)
   - >
     sudo docker run --net=${build_path}_default --detach
-    --link fab1:${dut_host} --link server1:server1 --link server2:server2
     --volume=${PWD}:/etc/ansible:rw
+    --link fab1:${dut_host} --link server1:server1 --link server2:server2
     ${docker_ops_privileged} ${docker_ops_volume1}
     ${distribution}-${version}:local ${init} > ${ansible_id}
 
@@ -122,6 +122,15 @@ script:
     --syntax-check
 
   # Run the test
+  - >
+    sudo docker exec --tty $(cat ${ansible_id})
+    env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
+    ansible-playbook ${test_pathname}
+    ${ansible_ops_debug} ${ansible_ops_limit} ${ansible_ops_skip_tags}
+    --extra-vars "ansible_host=${dut_host} ansible_port=${dut_port}"
+    --extra-vars "ops_rest_port=${dut_rest_port}"
+
+  # Run again to check the idempotent
   - >
     sudo docker exec --tty $(cat ${ansible_id})
     env TERM=xterm ANSIBLE_CONFIG=/etc/ansible/tests/ansible.cfg
