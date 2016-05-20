@@ -139,6 +139,8 @@ $ cat site.yaml
 - include: server.yaml
   tags: [ server ]
 
+and
+
 $ cat server.yaml
 ---
 - name: make all traffic to 172.16.0.0/16 through eth1
@@ -152,5 +154,10 @@ $ cat server.yaml
 
 git clone https://github.com/keinohguchi/dc-on-docker --recursive
 
-  Muchas
-Gracious!
+$ irssi -c chat.freenode.net
+[(status)] /join #openswitch
+[#openswitch] /me is here!
+[#openswitch] /msg kei hello!
+
+   Muchas
+Gracious! :)
