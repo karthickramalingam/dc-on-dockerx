@@ -27,7 +27,7 @@ services:
     container_name: "server1"
     privileged: true
     ports:
-      - "21022:22"
+      - "20122:22"
     networks:
       - default
     command: /usr/sbin/sshd -D
@@ -36,7 +36,7 @@ services:
     container_name: "server2"
     privileged: true
     ports:
-      - "22022:22"
+      - "20222:22"
     networks:
       - default
     command: /usr/sbin/sshd -D

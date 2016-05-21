@@ -95,3 +95,4 @@ create_leaf_networks
 connect_fabric_switches
 connect_spine_switches
 connect_leaf_switches
+connect_servers_to_fabric_network

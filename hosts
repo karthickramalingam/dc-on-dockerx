@@ -10,12 +10,20 @@ leaf1    ansible_port=13022 ops_rest_port=13443
 leaf2    ansible_port=14022 ops_rest_port=14443
 leaf3    ansible_port=15022 ops_rest_port=15443
 leaf4    ansible_port=16022 ops_rest_port=16443
-server1  ansible_port=21022
-server2  ansible_port=22022
+server1  ansible_port=20122
+server2  ansible_port=20222
 server11 ansible_port=21122
 server12 ansible_port=21222
 server21 ansible_port=22122
 server22 ansible_port=22222
+server30 ansible_port=23022
+server31 ansible_port=23122
+server40 ansible_port=24022
+server41 ansible_port=24122
+server50 ansible_port=25022
+server51 ansible_port=25122
+server60 ansible_port=26022
+server61 ansible_port=26122
 
 [switches:children]
 fabrics
@@ -40,6 +48,12 @@ server[1:2]
 [spine_servers]
 server[11:12]
 server[21:22]
+
+[leaf_servers]
+server[30:31]
+server[40:41]
+server[50:51]
+server[60:61]
 
 # Group for the tests/*.yml playbooks used by both travis CI.
 # You can use the local fab1 switch to run the test as:
