@@ -64,18 +64,18 @@
       tags: [ bgp, check, cli ]
       debug: var=result
 
-- name: check the BGP RIB
+- name: check the IPv4 RIB
   hosts: switches
   gather_facts: yes
   vars:
     ops_debug: no
   tasks:
-    - name: show ip bgp
+    - name: show ip route
       connection: local
       tags: [ bgp, check, cli ]
       ops_command:
         commands:
-          - show ip bgp
+          - show ip route
         provider: "{{ ops_cli_provider }}"
         waitfor:
           - "result[0] contains '172.16.0.0/24'"
