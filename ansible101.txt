@@ -13,23 +13,23 @@ Deployment
 
 Provisioning
 
+and
+
 Orchestration
 
-Inventory
-       &
-Playbook
+ Inventory,
+ Variables
+        &
+Playbooks
 
 Inventory
-1) hosts
-2) group_vars
-3) host_vars
+     aka
+   hosts
 
 hosts
 
 $ cat hosts
-[all:vars]
-ansible_host=localhost
- 
+...
 [all]
 docker
 fab1 ansible_port=10022 ops_rest_port=10443
@@ -40,6 +40,10 @@ fabrics
 [fabrics]
 fab1
 ...
+
+    Variables
+1) group_vars
+2) host_vars
 
 group_vars
 
@@ -79,9 +83,9 @@ ops_vrfs:
             remote_as: 65002
 ...
 
-Playbook
-1) Tasks
-2) Plays
+Playbooks
+ 1) Tasks
+ 2) Plays
 
 Task
 
@@ -116,7 +120,7 @@ $ cat site.yaml
       tags: [ base, check, rest ]
 ...
 
-Playbook
+Playbooks
 
 $ cat site.yaml
 ...
@@ -139,7 +143,7 @@ $ cat site.yaml
 - include: server.yaml
   tags: [ server ]
 
-and
+includes
 
 $ cat server.yaml
 ---
