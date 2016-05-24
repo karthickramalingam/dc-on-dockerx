@@ -7,7 +7,7 @@
   tasks:
     - name: check fabric switches' SSH connectivity
       ping:
-              
+
 - name: check spine switch health
   hosts: spines
   gather_facts: no
@@ -16,7 +16,7 @@
   tasks:
     - name: check spine switches' SSH connectivity
       ping:
-              
+
 - name: check leaf switch health
   hosts: leaves
   gather_facts: no
