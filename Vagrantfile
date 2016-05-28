@@ -81,4 +81,10 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
+  #
+  # Provisioning with Ansible
+  config.vm.provision "ansible" do |ansible|
+    ansible.verbose = true
+    ansible.playbook = "utils/provision.yaml"
+  end
 end
