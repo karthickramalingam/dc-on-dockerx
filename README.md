@@ -9,11 +9,22 @@ Docker-Compose in a snap!
 
 ## Requirements
 
-Ansible 2.1 and above, because OpenSwitch ansible roles, e.g. [ops switch role](http://github.com/keinohguchi/ops-switch-role), depends on Ansible 2.1 modules.
+### Control machine
 
-### Using Vagrant
+Ansible 2.1 or above on your control machine, as OpenSwitch ansible roles,
+e.g.  [ops switch role](http://github.com/keinohguchi/ops-switch-role),
+uses Ansible 2.1 modules.
 
-Please refer to [README.Vagrant.md](README.Vagrant.md) for vagrant setup.
+### Docker host
+
+Docker 1.9 or above, as `dc-on-docker` uses net docker network stack.
+
+### Vagrant sandbox
+
+You can create a completely sandboxed `dc-on-docker` environment by
+[Vagrant](http://vagrantup.com), though that's not the requirement to.
+Please refer to [README.Vagrant.md](README.Vagrant.md) for more detail
+if you want to go that path.
 
 ## Topology
 
