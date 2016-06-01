@@ -7,6 +7,8 @@
 Creating your own data-center (DC) on your laptop with Ansible and
 Docker-Compose in a snap!
 
+[![asciicast](https://asciinema.org/a/44142.png)](https://asciinema.org/a/44142)
+
 ## Requirements
 
 ### Control machine
