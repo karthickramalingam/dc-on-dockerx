@@ -128,4 +128,12 @@ Teardown the topology, after the party.
   $ ansible-playbook utils/teardown.yaml
 ```
 
+## Asciicast
+
+You can watch the asciicast locally on you laptop, once you install [asciinema](https://asciinema.org/docs/installation), with:
+
+```
+  $ asciinema play asciicast-june-2016.json
+```
+
 Enjoy and happy hacking!
