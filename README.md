@@ -19,7 +19,7 @@ uses Ansible 2.1 modules.
 
 ### Docker host
 
-Docker 1.9 or above, as `dc-on-docker` uses net docker network stack.
+Docker 1.9 or above, as `dc-on-docker` uses new docker networking stack.
 
 ### Vagrant sandbox
 
