@@ -7,7 +7,7 @@
 Creating your own data-center (DC) on your laptop with Ansible and
 Docker-Compose in a snap!
 
-[![asciicast](https://asciinema.org/a/44142.png)](https://asciinema.org/a/44142)
+[![asciicast](https://asciinema.org/a/49164.png)](https://asciinema.org/a/49164)
 
 ## Requirements
 
@@ -127,11 +127,5 @@ Teardown the topology, after the party.
 ```
   $ ansible-playbook utils/teardown.yaml
 ```
-
-## Screenshot
-
-Here is dc-on-docker in action [screencast](https://asciinema.org/a/44142) on [asciicast](https://asciinema.org), that shows you how to create VirtualBox based
-Ansible control machine from scratch and actual
-[dc-on-docker](https://github.com/keinohguchi/dc-on-docker) in action.
 
 Enjoy and happy hacking!
