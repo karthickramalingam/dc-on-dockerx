@@ -1,29 +1,27 @@
 [all:vars]
-ansible_host=localhost
+ansible_host=dockerhost
+ansible_user=openswitch
 
 [all]
 docker
-fab1     ansible_port=10022 ops_rest_port=10443
-spine1   ansible_port=11022 ops_rest_port=11443
-spine2   ansible_port=12022 ops_rest_port=12443
-leaf1    ansible_port=13022 ops_rest_port=13443
-leaf2    ansible_port=14022 ops_rest_port=14443
-leaf3    ansible_port=15022 ops_rest_port=15443
-leaf4    ansible_port=16022 ops_rest_port=16443
-server1  ansible_port=20122
-server2  ansible_port=20222
-server11 ansible_port=21122
-server12 ansible_port=21222
-server21 ansible_port=22122
-server22 ansible_port=22222
-server30 ansible_port=23022
-server31 ansible_port=23122
-server40 ansible_port=24022
-server41 ansible_port=24122
-server50 ansible_port=25022
-server51 ansible_port=25122
-server60 ansible_port=26022
-server61 ansible_port=26122
+fab1     ansible_port=11022 ops_rest_port=11443
+fab2     ansible_port=12022 ops_rest_port=12443
+fab3     ansible_port=13022 ops_rest_port=13443
+fab4     ansible_port=14022 ops_rest_port=14443
+spine1   ansible_port=21022 ops_rest_port=21443
+spine2   ansible_port=22022 ops_rest_port=22443
+spine3   ansible_port=23022 ops_rest_port=23443
+spine4   ansible_port=24022 ops_rest_port=24443
+spine5   ansible_port=25022 ops_rest_port=25443
+spine6   ansible_port=26022 ops_rest_port=26443
+spine7   ansible_port=27022 ops_rest_port=27443
+spine8   ansible_port=28022 ops_rest_port=28443
+leaf1    ansible_port=31022 ops_rest_port=31443
+leaf2    ansible_port=32022 ops_rest_port=32443
+leaf3    ansible_port=33022 ops_rest_port=33443
+leaf4    ansible_port=34022 ops_rest_port=34443
+server1  ansible_port=41022
+server2  ansible_port=42022
 
 [switches:children]
 fabrics
@@ -32,28 +30,25 @@ leaves
 
 [fabrics]
 fab1
+fab2
+fab3
+fab4
 
 [spines]
-spine[1:2]
+spine[1:8]
 
 [leaves]
 leaf[1:4]
 
 [servers:children]
 fabric_servers
+leaf_servers
 
 [fabric_servers]
-server[1:2]
-
-[spine_servers]
-server[11:12]
-server[21:22]
+server1
 
 [leaf_servers]
-server[30:31]
-server[40:41]
-server[50:51]
-server[60:61]
+server2
 
 # Group for the tests/*.yml playbooks used by both travis CI.
 # You can use the local fab1 switch to run the test as:

@@ -8,8 +8,6 @@
   tasks:
     - include: tasks/cli/check_version.yaml
       tags: [ base, check, cli ]
-    - include: tasks/rest/check_version.yaml
-      tags: [ base, check, rest ]
 
 - name: L2/L3 configuration on fabric switches
   hosts: fabrics
@@ -47,8 +45,6 @@
   tasks:
     - include: tasks/cli/check_hostname.yaml
       tags: [ base, check, cli ]
-    - include: tasks/rest/check_hostname.yaml
-      tags: [ base, check, rest ]
 
 - name: check the switch configuration
   hosts: switches
@@ -59,11 +55,9 @@
   tasks:
     - include: tasks/cli/check_running_config.yaml
       tags: [ base, check, cli ]
-    - include: tasks/rest/check_full_config.yaml
-      tags: [ base, check, rest ]
 
 - include: bgp.yaml
   tags: [ bgp ]
 
-- include: server.yaml
-  tags: [ server ]
+#- include: server.yaml
+#  tags: [ server ]

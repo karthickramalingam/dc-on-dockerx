@@ -39,7 +39,7 @@
   hosts: fabrics
   gather_facts: no
   vars:
-    ansible_user: admin
+    ansible_user: root
   tasks:
     - name: move dplane interface to the net namespace by utils/ops-if-netns.sh
       become: yes
@@ -52,7 +52,7 @@
   hosts: spines
   gather_facts: no
   vars:
-    ansible_user: admin
+    ansible_user: root
   tasks:
     - name: move dplane interface to the net namespace by utils/ops-if-netns.sh
       become: yes
@@ -65,7 +65,7 @@
   hosts: leaves
   gather_facts: no
   vars:
-    ansible_user: admin
+    ansible_user: root
   tasks:
     - name: move dplane interface to the net namespace by utils/ops-if-netns.sh
       become: yes
@@ -73,3 +73,6 @@
         done: /tmp/ops_if_netns.done
       command: >
         /home/admin/bin/ops-if-netns.sh > "{{ done }}" creates="{{ done }}"
+
+- include: ../site.yaml
+

@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: shutdown containers
-      command: docker-compose down
+      command: docker-compose down --remove-orphans
     - pause: seconds=5
     - name: removing the network temp file
       file: path="{{ docker_network_done_file }}" state=absent

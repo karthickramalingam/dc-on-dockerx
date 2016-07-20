@@ -1,6 +1,6 @@
 ---
 # We'll use the admin account to access OpenSwitch switches.
-ansible_user: admin
+ansible_user: root
 
 # Those will be secured by the ansible vault in the real environment.
 ops_username: netop
@@ -29,12 +29,12 @@ ops_rest_provider:
 ops_system_hostname: "{{ inventory_hostname }}"
 
 # Every switch shares ops_bridge configuration for now.
-ops_bridges:
-  - name: bridge_normal
-    ports: [4, 5, 6, 7, 8]
-    vlans:
-      - name: VLAN10
-        id: 10
+#ops_bridges:
+#  - name: bridge_normal
+#    ports: [1, 2, 3, 4, 5, 6, 7, 8]
+#    vlans:
+#      - name: VLAN10
+#        id: 10
 
 # Only eight ports will be used in this environment.
 ops_interfaces:
@@ -46,3 +46,4 @@ ops_interfaces:
   - name: 6
   - name: 7
   - name: 8
+  - name: 9

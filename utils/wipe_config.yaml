@@ -3,7 +3,7 @@
   hosts: switches
   gather_facts: no
   vars:
-    ansible_user: admin
+    ansible_user: root
     ops_debug: yes
   roles:
     - role: switch
